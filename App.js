@@ -1,7 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { getStreak, setStreak } from './logic';
 
 export default function App() {
+  setStreak({ "hello"});
+  console.log(getStreak());
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
