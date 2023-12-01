@@ -4,11 +4,11 @@ import { Text } from 'react-native';
 
 export default function Streak() {
     const KEY = "@streak";
-    const [streak, setStreak] = useState('0');
+    const [streak, setStreak] = useState(0);
 
     const storeStreak = async (streak) => {
         try {
-            await AsyncStorage.setItem(KEY, streak);
+            await AsyncStorage.setItem(KEY, streak.toString());
             console.log("Streak has been saved as ", streak);
         } 
         catch (e) {
@@ -30,7 +30,7 @@ export default function Streak() {
         try {
             const streak = await AsyncStorage.getItem(KEY);
             if (streak !== null) {
-                setStreak(streak);
+                setStreak(parseInt(streak));
                 console.log("reading Streak was succesfull ", streak);
             }
         }
@@ -50,7 +50,7 @@ export default function Streak() {
     };
     
     const updateStreak = () => {
-        const newStreak = (parseFloat(streak.substring()) + 1).toString();
+        const newStreak = (parseInt(streak) + 1).toString();
         storeStreak(newStreak);
         console.log("new streak ", newStreak);
         readStreak();
