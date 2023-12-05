@@ -41,4 +41,14 @@ export async function updateScore(score) {
             (e) => { console.error("err in updateScore ", e) }
         );
     })
+};
+
+export async function getStreak() {
+    database.transaction((trans) => {
+        trans.executeSql("SELECT streak FROM streak_score",
+            null,
+            (_, { rows: { _array } }) => { console.log("got streak from db ", _array) }
+        )
+
+    })
 }

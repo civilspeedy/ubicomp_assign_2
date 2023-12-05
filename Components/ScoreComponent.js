@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export default function Score(){
+export default function Score() {
     const [score, setScore] = useState(0);
 
-    return(
+    return (
         <Text></Text>
     );
 };
