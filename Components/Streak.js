@@ -5,6 +5,6 @@ import { Text } from 'react-native';
 export default function Streak() {
 
     return (
-        <Text>{ }</Text>
+        <Text>placeholder</Text>
     );
 };
