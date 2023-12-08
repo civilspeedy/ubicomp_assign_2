@@ -2,12 +2,13 @@ import * as SQL from 'expo-sqlite';
 
 const database = SQL.openDatabase("database.db");
 
+// using fragments from ben's example files
 
 export async function createStreakScoreTable() {
     database.transaction((trans) => {
-        trans.executeSql("CREATE TABLE IF NOT EXISTS streak_Score (streak INTEGER, score INTEGER)",
+        trans.executeSql("CREATE TABLE IF NOT EXISTS streak_score (streak INTEGER, score INTEGER)",
             null,
-            () => { console.log("Database up"); },
+            () => { console.log("streak_score table up"); },
             (e) => { console.error("err in createSteakScoreTable ", e); }
         );
     })
@@ -49,6 +50,15 @@ export async function getStreak() {
             null,
             (_, { rows: { _array } }) => { console.log("got streak from db ", _array) }
         )
-
     })
-}
+};
+
+export async function createTaskTable() {
+    database.transaction((trans) => {
+        trans.executeSql("CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, format VARCHAR, pageCount INTEGER, wordCount INTEGER, due DATE, subject VARCHAR)",
+            null,
+            () => console.log("tasks table up"),
+            (e) => console.error("err in createTaskTable ", e)
+        )
+    })
+};
