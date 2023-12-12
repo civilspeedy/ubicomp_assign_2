@@ -44,11 +44,14 @@ export async function updateScore(score) {
     })
 };
 
-export async function getStreak() {
+export async function getStreak(setStreak) {
     database.transaction((trans) => {
         trans.executeSql("SELECT streak FROM streak_score",
             null,
-            (_, { rows: { _array } }) => { console.log("got streak from db ", _array) }
+            (_, { rows: { _array } }) => {
+                console.log("got streak from db ", _array)
+                setStreak(_array)
+            }
         )
     })
 };
@@ -60,5 +63,13 @@ export async function createTaskTable() {
             () => console.log("tasks table up"),
             (e) => console.error("err in createTaskTable ", e)
         )
+    })
+};
+
+export async function getTasks() {
+    database.transaction((trans) => {
+        trans.executeSql("SELECT * FROM tasks",
+            null,
+            (_, { rows: { _array } }) => )
     })
 };
