@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import TodayPage from './Pages/TodayPage';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CalendarPage from './Pages/CalendarPage';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+import CalendarPage from './Pages/CalendarPage';
+import TodayPage from './Pages/TodayPage';
 import StreakPage from './Pages/StreakPage';
 import ScoreStorePage from './Pages/ScoreStorePage';
+import { globalColours } from './Styling/GlobalStyles';
 
 
 export default function App() {
@@ -14,7 +15,7 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
+    <NavigationContainer style={styles.container}>
       <StatusBar style="auto" />
       <Stack.Navigator screenOptions={{ //https://reactnavigation.org/docs/material-top-tab-navigator/#options
         "tabBarStyle": {
@@ -32,8 +33,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'blue',
-    justifyContent: 'space-between',
+    backgroundColor: globalColours.backgroundPrimary,
   },
 });

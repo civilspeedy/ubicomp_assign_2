@@ -17,18 +17,16 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         padding: 16,
-        backgroundColor: 'blue'
     },
     titleText: {
         fontWeight: 'bold',
         fontSize: 40,
-        margin: 10,
+        marginTop: 10,
         color: '#00C3FF',
     },
     topView: {
         flex: 1,
         width: '100%',
-        backgroundColor: 'red',
         alignContent: 'flex-start',
         justifyContent: 'flex-start',
     },

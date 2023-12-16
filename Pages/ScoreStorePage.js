@@ -1,9 +1,10 @@
 import TitleText from "../Components/TitleTextComponent";
 import { View } from "react-native";
+import { globalStyle } from "../Styling/GlobalStyles";
 
 export default function ScoreStorePage() {
     return (
-        <View style={{ flex: 1 }}>
+        <View style={globalStyle.pageContainer}>
             <TitleText titleName={"SCORE STORE"} />
         </View>
     );
