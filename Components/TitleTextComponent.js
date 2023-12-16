@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
         color: '#00C3FF',
     },
     topView: {
-        flex: 1,
         width: '100%',
         alignContent: 'flex-start',
         justifyContent: 'flex-start',
+        height: '12%',
     },
 })

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import TitleText from "../Components/TitleTextComponent";
-import { globalStyle } from "../Styling/GlobalStyles";
+import { globalColours, globalStyle } from "../Styling/GlobalStyles";
 import { Calendar } from "react-native-calendars";
 
 export default function CalendarPage() {
@@ -10,7 +10,7 @@ export default function CalendarPage() {
             <TitleText titleName={"CALENDAR"} />
 
             <View style={styles.calendarContainer}>
-                <Calendar />
+                <Calendar style={styles.calendar} />
             </View>
         </View>
     )
@@ -20,6 +20,12 @@ const styles = StyleSheet.create({
     calendarContainer: {
         flex: 1,
         alignContent: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+    },
+    calendar: {
+        backgroundColor: globalColours.backgroundSecondary,
+        margin: 20,
+        padding: 20,
+        borderRadius: 20,
     }
 });
