@@ -7,22 +7,24 @@ export default function TaskComponent({ task }) {
     const [expanded, setexpanded] = useState(false); // https://reactnative.dev/docs/layoutanimation/
 
     return (
-        <View style={styles.container}>
-            <Pressable style={{ padding: 10 }}
+        <View>
+            <Pressable style={styles.container}
                 onPress={() => {
                     impactAsync();
                     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
                     setexpanded(!expanded);
                 }}>
                 <View style={styles.pressableTextWrapper}>
-                    <Text style={{ marginHorizontal: 10 }}>{task.title}</Text>
-                    <Text style={{ marginHorizontal: 10 }}>Due: {task.due}</Text>
+                    <Text style={styles.taskTitle}>{task.title}</Text>
+                    <Text style={styles.taskStatText}>Due: {task.due}</Text>
                 </View>
             </Pressable>
 
             {expanded && (
                 <View style={styles.extendedDisplay}>
-                    <Text>Max Words: {task.maxWords}</Text>
+                    <Text style={styles.taskStatText}>Max Words: {task.maxWords}</Text>
+                    <Text style={styles.taskStatText}>Subject: {task.subject}</Text>
+                    <Text style={styles.taskStatText}>Task Type: {task.type}</Text>
                 </View>
             )}
         </View>
@@ -32,19 +34,28 @@ export default function TaskComponent({ task }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: globalColours.backgroundSecondary,
-        padding: 20,
+        padding: 10,
         borderRadius: 20,
-        alignContent: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 20,
+        alignItems: 'flex-start',
+        marginHorizontal: 20,
+        marginVertical: 5
     },
-
-    pressableTextWrapper: {
-        flexDirection: 'row',
+    taskTitle: {
+        color: globalColours.secondary,
+        fontWeight: 'bold',
+        fontSize: 30,
+        alignSelf: 'center'
     },
+    taskStatText: {
+        fontSize: 15,
+        alignSelf: 'center',
 
+    },
     extendedDisplay: {
+        backgroundColor: globalColours.tertiary,
+        borderRadius: 20,
+        marginHorizontal: 20,
+        padding: 5,
 
     },
 })
