@@ -8,11 +8,11 @@ import TodayPage from './Pages/TodayPage';
 import StreakPage from './Pages/StreakPage';
 import ScoreStorePage from './Pages/ScoreStorePage';
 import { globalColours } from './Styling/GlobalStyles';
+import { calculateTone } from './Logic/Cheerleader';
 
 
 export default function App() {
   const Stack = createMaterialTopTabNavigator(); // https://reactnavigation.org/docs/material-top-tab-navigator
-
 
   return (
     <NavigationContainer style={styles.container}>
