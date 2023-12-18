@@ -51,8 +51,6 @@ export default function TodayPage() {
                     })}
                 </ScrollView>
             </GestureHandlerRootView>
-
-
         </View>
     );
 };

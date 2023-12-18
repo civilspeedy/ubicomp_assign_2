@@ -9,6 +9,7 @@ import StreakPage from './Pages/StreakPage';
 import ScoreStorePage from './Pages/ScoreStorePage';
 import { globalColours } from './Styling/GlobalStyles';
 import { calculateTone } from './Logic/Cheerleader';
+import StartPage from './Pages/StartPage';
 
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
         }
       }}>
         <Stack.Screen name='Today' component={TodayPage} />
+        <Stack.Screen name='Start' component={StartPage} />
         <Stack.Screen name='Calendar' component={CalendarPage} />
         <Stack.Screen name="Streak" component={StreakPage} />
         <Stack.Screen name="ScoreStore" component={ScoreStorePage} />
