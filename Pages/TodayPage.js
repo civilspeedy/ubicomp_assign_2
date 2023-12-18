@@ -22,12 +22,11 @@ export default function TodayPage() {
     console.log("date format test ", formatDate(dummyTask.due));
 
     const [points, setPoints] = useState(0);
-
     const [tasks, setTasks] = useState([]);
     const [taskHeader, setHeader] = useState('');
 
     useEffect(() => {
-        if (tasks == null) {
+        if (tasks.length == 0) {
             setHeader('No Tasks For Today');
         } else {
             setHeader('Tasks for Today:');

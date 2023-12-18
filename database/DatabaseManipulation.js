@@ -91,4 +91,7 @@ export async function getTasks(setTasks) {
       (e) => console.error('err in getTasks', e)
     )
   })
-}
+};
+
+// const [item1, item2] = await Promise.all([getfunc1, getFunt2]) <- saw on reddit meant to be a fast way of getting things
+// https://www.reddit.com/r/reactnative/comments/t2cdwh/quicktip_to_perform_multiple_tasks_at_once_like_a/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button

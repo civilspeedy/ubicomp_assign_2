@@ -8,6 +8,8 @@ import CurrentTask from "../Components/CurrentTaskComponent";
 
 export default function StartPage() {
     const [currentTask, setCurrentTask] = useState(null);
+    const [timerActive, setTimer] = useState(false);
+
     const dummyTask = {
         title: 'Essay',
         due: '2023-03-12',
@@ -24,13 +26,12 @@ export default function StartPage() {
             <TitleText titleName={'START'} />
             <View style={styles.timerContainer}>
                 <CountdownCircleTimer
-                    isPlaying
+                    isPlaying={timerActive}
                     duration={1200}
                     colors={[globalColours.secondary, globalColours.tertiary]}
                 >
                     {({ remainingTime }) => <Text style={styles.countdownText}>{timeFormat(remainingTime)}</Text>}
                 </CountdownCircleTimer>
-
                 <View style={styles.tasksContainer}>
                     <Text style={styles.currentTaskHeader}>Current Task:</Text>
                     <CurrentTask task={dummyTask} />
