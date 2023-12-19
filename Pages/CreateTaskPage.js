@@ -8,7 +8,7 @@ import { Picker } from "@react-native-picker/picker";
 export default function CreateTaskPage() {
     const [isOpen, setOpen] = useState(false);
     const [title, setTitle] = useState(null);
-    const [type, setType] = useState(null);
+    const [type, setType] = useState('What type of task is it?');
     const [maxWords, setMaxWords] = useState(null);
     const [due, setDue] = useState(null);
     const [subject, setSubject] = useState(null);
@@ -24,15 +24,17 @@ export default function CreateTaskPage() {
 
             <DateSlector date={0} />
 
-            <Picker onValueChange={(itemValue) => { setType(itemValue) }}>
+            <Picker style={styles.picker}
+                selectedValue={type}
+                onValueChange={(itemValue) => { setType(itemValue) }}>
                 <Picker.Item label="Essay" value={'Essay'} />
-                <Picker.Item label="Essay" value={'Essay'} />
+                <Picker.Item label="Presentation" value={'Presentation'} style={{ color: 'black' }} />
             </Picker>
 
             <TextInput style={styles.input}
                 keyboardType='numeric'
                 value={maxWords}
-                placeholder="What's the Max Word Cound?" />
+                placeholder="What's the Max Word Count?" />
         </View>
     )
 };
@@ -58,5 +60,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 10,
         backgroundColor: 'white',
+    },
+    picker: {
+        borderWidth: 4,
+        backgroundColor: 'white',
+        padding: 20,
     },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { globalColours, globalStyle } from "../Styling/GlobalStyles";
 import TitleText from "../Components/TitleTextComponent";
@@ -9,6 +9,7 @@ import CurrentTask from "../Components/CurrentTaskComponent";
 export default function StartPage() {
     const [currentTask, setCurrentTask] = useState(null);
     const [timerActive, setTimer] = useState(false);
+    const [duration, setDuration] = useState(1200);
 
     const dummyTask = {
         title: 'Essay',
@@ -27,17 +28,42 @@ export default function StartPage() {
             <View style={styles.timerContainer}>
                 <CountdownCircleTimer
                     isPlaying={timerActive}
-                    duration={1200}
+                    duration={duration}
                     colors={[globalColours.secondary, globalColours.tertiary]}
                 >
                     {({ remainingTime }) => <Text style={styles.countdownText}>{timeFormat(remainingTime)}</Text>}
                 </CountdownCircleTimer>
+
+                {timerActive ? (
+                    <View style={styles.timerControls}>
+                        <Pressable style={styles.pauseButton}
+                            onPress={() => setTimer(false)}>
+                            <Text style={styles.buttonText}>Pause Timer</Text>
+                        </Pressable>
+
+                        <Pressable style={styles.cancelButton}
+                            onPress={() => {
+                                setTimer(false)
+                                setDuration(1200)
+                            }}>
+                            <Text style={styles.buttonText}>Cancel Timer</Text>
+                        </Pressable>
+
+
+                    </View>
+                ) : (
+                    <Pressable style={styles.startButton}
+                        onPress={() => setTimer(true)}>
+                        <Text style={styles.buttonText}>Start Tasks</Text>
+                    </Pressable>
+                )}
+
                 <View style={styles.tasksContainer}>
                     <Text style={styles.currentTaskHeader}>Current Task:</Text>
                     <CurrentTask task={dummyTask} />
                 </View>
             </View>
-        </View>
+        </View >
     )
 };
 
@@ -62,5 +88,30 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: globalColours.secondary,
         fontWeight: 'bold',
+    },
+    startButton: {
+        backgroundColor: globalColours.tertiary,
+        padding: 20,
+        borderRadius: 20,
+        margin: 10,
+    },
+    pauseButton: {
+        backgroundColor: '#f65026',
+        padding: 20,
+        borderRadius: 20,
+        margin: 10,
+    },
+    cancelButton: {
+        backgroundColor: 'red',
+        padding: 20,
+        borderRadius: 20,
+        margin: 10,
+
+    },
+    buttonText: {
+        fontWeight: 'bold', fontSize: 20
+    },
+    timerControls: {
+        flexDirection: 'row',
     },
 });
