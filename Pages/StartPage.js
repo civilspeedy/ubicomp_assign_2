@@ -43,8 +43,8 @@ export default function StartPage() {
 
                         <Pressable style={styles.cancelButton}
                             onPress={() => {
-                                setTimer(false)
-                                setDuration(1200)
+                                setTimer(false);
+                                setDuration(1200);
                             }}>
                             <Text style={styles.buttonText}>Cancel Timer</Text>
                         </Pressable>
