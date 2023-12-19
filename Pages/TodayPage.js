@@ -7,6 +7,7 @@ import TaskComponent from "../Components/TaskComponent";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { formatDate } from "../Logic/DateFormater";
 import PointsAvailable from "../Components/PointsAvailableComponent";
+import CreateTask from "../Components/CreateTaskComponent";
 
 
 export default function TodayPage() {
@@ -49,6 +50,8 @@ export default function TodayPage() {
                         <TaskComponent key={index} task={task} />
                     })}
                 </ScrollView>
+
+                <CreateTask />
             </GestureHandlerRootView>
         </View>
     );
