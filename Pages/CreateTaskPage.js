@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { globalColours } from "../Styling/GlobalStyles";
 import DateSlector from "../Components/DateSelectorComponent";
 import TitleText from "../Components/TitleTextComponent";
 import Picker from "../Components/PickerComponent";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function CreateTaskPage() {
     const [title, setTitle] = useState(null);
@@ -12,6 +13,8 @@ export default function CreateTaskPage() {
     const [due, setDue] = useState(null);
     const [subject, setSubject] = useState(null);
     const taskTypes = ['Essay', 'Report', 'Presentation', 'Chore', 'General', 'Meeting'];
+
+    // maybe have a tickbox on the side that show when you complete each task entry
 
     return (
         <View style={styles.view}>
@@ -29,6 +32,10 @@ export default function CreateTaskPage() {
                 keyboardType='numeric'
                 value={maxWords}
                 placeholder="What's the Max Word Count?" />
+
+            <Pressable>
+                <AntDesign name='checkcircle' size={50} color={'lightgreen'} />
+            </Pressable>
         </View>
     )
 };
@@ -54,10 +61,5 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 5,
         backgroundColor: 'white',
-    },
-    picker: {
-        borderWidth: 4,
-        backgroundColor: 'white',
-        padding: 20,
     },
 });

@@ -5,7 +5,6 @@ import { impactAsync } from "expo-haptics";
 
 export default function TaskComponent({ task }) {
     const [expanded, setexpanded] = useState(false); // https://reactnative.dev/docs/layoutanimation/
-
     return (
         <View>
             <Pressable style={styles.container}

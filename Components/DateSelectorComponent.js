@@ -1,38 +1,38 @@
 import { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import { globalColours } from "../Styling/GlobalStyles";
+import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
 import DateTimePicker from "react-native-ui-datepicker";
 
 export default function DateSlector({ date }) {
     const [isOpen, setOpen] = useState(false);
     const [selectedDate, setDate] = useState(null);
-
+    const [title, setTitle] = useState('Select Date')
 
     // https://github.com/farhoudshapouran/react-native-ui-datepicker
     return (
         <View>
-            <Modal style={styles.modal}
-                animationType="slide"
-                visible={isOpen}
-                transparent={true}
-                onRequestClose={() => { setOpen(!isOpen) }}>
+            <Pressable onPress={() => {
+                smoothExpansionAnimation();
+                setOpen(!isOpen);
+
+            }}
+                style={styles.button}>
+                <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>{title}</Text>
+            </Pressable>
+
+            {isOpen && (
                 <View style={styles.calendarContainer}>
                     <DateTimePicker
                         value={selectedDate}
-                        onValueChange={(justSelected) => { setDate(justSelected) }}
+                        onValueChange={(justSelected) => {
+                            setDate(justSelected);
+                            setTitle(justSelected);
+                        }}
                         selectedItemColor={globalColours.secondary}
                         headerButtonStyle={styles.calendarNextPageButtons}
                         headerButtonColor="white" />
-
-                    <Pressable onPress={() => { setOpen(false) }} style={styles.closeButton}><Text style={{ color: 'white' }}>Close</Text></Pressable>
                 </View>
-
-
-            </Modal>
-
-            <Pressable onPress={() => { setOpen(true) }} style={styles.button}>
-                <Text style={{ color: 'white' }}>Select Date</Text>
-            </Pressable>
+            )}
         </View>
     );
 };
