@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { LayoutAnimation, StyleSheet } from "react-native";
+
+export function smoothExpansionAnimation() { LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); }
 
 export const globalColours = {
     primary: '#3abfef',

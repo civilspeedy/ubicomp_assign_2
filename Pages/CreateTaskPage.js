@@ -3,16 +3,15 @@ import { StyleSheet, TextInput, View } from "react-native";
 import { globalColours } from "../Styling/GlobalStyles";
 import DateSlector from "../Components/DateSelectorComponent";
 import TitleText from "../Components/TitleTextComponent";
-import { Picker } from "@react-native-picker/picker";
+import Picker from "../Components/PickerComponent";
 
 export default function CreateTaskPage() {
-    const [isOpen, setOpen] = useState(false);
     const [title, setTitle] = useState(null);
-    const [type, setType] = useState('What type of task is it?');
+    const [type, setType] = useState(null);
     const [maxWords, setMaxWords] = useState(null);
     const [due, setDue] = useState(null);
     const [subject, setSubject] = useState(null);
-
+    const taskTypes = ['Essay', 'Report', 'Presentation', 'Chore', 'General', 'Meeting'];
 
     return (
         <View style={styles.view}>
@@ -22,14 +21,9 @@ export default function CreateTaskPage() {
                 value={title}
                 placeholder="Give your task a name!" />
 
-            <DateSlector date={0} />
+            <Picker pickerLabel={'What type of Task is it?'} items={taskTypes} setValue={setType} />
 
-            <Picker style={styles.picker}
-                selectedValue={type}
-                onValueChange={(itemValue) => { setType(itemValue) }}>
-                <Picker.Item label="Essay" value={'Essay'} />
-                <Picker.Item label="Presentation" value={'Presentation'} style={{ color: 'black' }} />
-            </Picker>
+            <DateSlector date={0} />
 
             <TextInput style={styles.input}
                 keyboardType='numeric'
@@ -58,7 +52,7 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 20,
         marginHorizontal: 20,
-        marginVertical: 10,
+        marginVertical: 5,
         backgroundColor: 'white',
     },
     picker: {

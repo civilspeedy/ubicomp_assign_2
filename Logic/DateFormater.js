@@ -16,3 +16,7 @@ export function timeFormat(timeInSeconds) {
 
     return `${minutes}:${seconds}`;
 };
+
+export function minutesToSecond(timeInMinutes) {
+    return timeInMinutes / 60;
+};

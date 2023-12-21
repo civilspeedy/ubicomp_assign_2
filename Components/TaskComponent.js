@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Pressable, LayoutAnimation } from "react-native";
-import { globalColours } from "../Styling/GlobalStyles";
+import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
 import { impactAsync } from "expo-haptics";
 
 export default function TaskComponent({ task }) {
@@ -11,7 +11,7 @@ export default function TaskComponent({ task }) {
             <Pressable style={styles.container}
                 onPress={() => {
                     impactAsync();
-                    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+                    smoothExpansionAnimation();
                     setexpanded(!expanded);
                 }}>
                 <View style={styles.pressableTextWrapper}>

@@ -9,7 +9,10 @@ import CurrentTask from "../Components/CurrentTaskComponent";
 export default function StartPage() {
     const [currentTask, setCurrentTask] = useState(null);
     const [timerActive, setTimer] = useState(false);
-    const [duration, setDuration] = useState(1200);
+    const [duration, setDuration] = useState(0);
+    const [firstStart, setFirstStart] = useState(true);
+    const [key, setKey] = useState(0);
+
 
     const dummyTask = {
         title: 'Essay',
@@ -18,7 +21,7 @@ export default function StartPage() {
         wordCount: 0,
         subject: 'ubi comp',
         type: 'essay',
-    }
+    };
 
 
     // timer from https://www.npmjs.com/package/react-native-countdown-circle-timer
@@ -27,6 +30,7 @@ export default function StartPage() {
             <TitleText titleName={'START'} />
             <View style={styles.timerContainer}>
                 <CountdownCircleTimer
+                    key={key}
                     isPlaying={timerActive}
                     duration={duration}
                     colors={[globalColours.secondary, globalColours.tertiary]}
@@ -44,7 +48,7 @@ export default function StartPage() {
                         <Pressable style={styles.cancelButton}
                             onPress={() => {
                                 setTimer(false);
-                                setDuration(1200);
+                                setKey(prevKey => prevKey + 1);
                             }}>
                             <Text style={styles.buttonText}>Cancel Timer</Text>
                         </Pressable>
@@ -53,7 +57,12 @@ export default function StartPage() {
                     </View>
                 ) : (
                     <Pressable style={styles.startButton}
-                        onPress={() => setTimer(true)}>
+                        onPress={() => {
+                            if (firstStart) {
+                                // TODO: create modal asking how long the user wants the timer to be
+                            };
+                            setTimer(true)
+                        }}>
                         <Text style={styles.buttonText}>Start Tasks</Text>
                     </Pressable>
                 )}
