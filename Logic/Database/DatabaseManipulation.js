@@ -72,7 +72,7 @@ export async function getScore(setScore) {
 
 export async function createTaskTable() {
   database.transaction((trans) => {
-    trans.executeSql('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, format VARCHAR, page_count INTEGER, slide_cout INTEGER, word_count INTEGER, start_date DATE, due DATE, subject VARCHAR)',
+    trans.executeSql('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, format VARCHAR, page_count INTEGER, slide_count INTEGER, word_count INTEGER, start_date DATE, due DATE, subject VARCHAR)',
       null,
       () => console.log('tasks table up'),
       (e) => console.error('err in createTaskTable ', e)
@@ -80,15 +80,32 @@ export async function createTaskTable() {
   })
 };
 
-export async function addTask(task) {
+export async function dropTaskTable() {
   database.transaction((trans) => {
-    trans.executeSql('INSERT INTO tasks (title, format, page_count, slide_count, word_count, start_date, due, subject) VALUES = (?, ?, ?, ?, ?, ?, ?, ?)',
-      [task.title, task.type, task.maxPages, task.maxSlides, task.maxWords, task.startDate, task.dueDate, task.subject],
-      () => console.log('Task ', task, ' added'),
-      (e) => console.error('err in addTask ', e)
+    trans.executeSql('DROP TABLE tasks',
+      null,
+      () => console.log('tasks table dropped'),
+      (e) => console.error('err in dropTaskTable ', e)
     )
-  });
+  })
 };
+
+export async function addTask(task) {
+  console.log('task -> ', task);
+
+  try {
+    database.transaction(async (trans) => {
+      trans.executeSql(
+        'INSERT INTO tasks (title, format, page_count, slide_count, word_count, start_date, due, subject) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [task._title, task._type, task._maxPages, task._maxSlides, task._maxWords, task._startDate, task._dueDate, task._subject,],
+        (_) => console.log('Task added:', task),
+        (_, e) => console.error('Error in addTask: ', e)
+      );
+    });
+  } catch (error) {
+    console.error('Transaction error: ', error);
+  }
+}
 
 export async function getTasks(setTasks) {
   database.transaction((trans) => {

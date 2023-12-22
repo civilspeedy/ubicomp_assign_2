@@ -10,14 +10,14 @@ import CustomTextInput from "../Components/CustomTextInputComponent";
 import { addTask } from "../Logic/Database/DatabaseManipulation";
 
 export default function CreateTaskPage() {
-    const [title, setTitle] = useState(null);
-    const [type, setType] = useState(null);
-    const [maxWords, setMaxWords] = useState(null);
-    const [due, setDue] = useState(null); // needs input made
-    const [start, setStart] = useState(null); // needs input made
-    const [pages, setPages] = useState(null);
-    const [slides, setSlides] = useState(null);
-    const [subject, setSubject] = useState(null);
+    const [title, setTitle] = useState('');
+    const [type, setType] = useState('');
+    const [maxWords, setMaxWords] = useState('');
+    const [due, setDue] = useState(''); // needs input made
+    const [start, setStart] = useState(''); // needs input made
+    const [pages, setPages] = useState('');
+    const [slides, setSlides] = useState('');
+    const [subject, setSubject] = useState('');
     const taskTypes = ['Essay', 'Report', 'Presentation', 'Chore', 'General', 'Meeting', 'Project'];
 
     // maybe have a tickbox on the side that show when you complete each task entry
@@ -41,7 +41,7 @@ export default function CreateTaskPage() {
                 subject={subject}
                 setSubject={setSubject} />
 
-            <Pressable onPress={addTask({ title: title, type: type, maxSlides: slides, startDate: start, dueDate: due, subject: subject })}>
+            <Pressable onPress={() => addTask({ _title: 'test', _type: 'test', _maxSlides: 0, _startDate: '00-00-00', _dueDate: '00-00-00', _subject: 'test' })}>
                 <AntDesign name='checkcircle' size={50} color={'lightgreen'} />
             </Pressable>
         </View>
