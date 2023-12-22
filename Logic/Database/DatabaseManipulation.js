@@ -72,12 +72,22 @@ export async function getScore(setScore) {
 
 export async function createTaskTable() {
   database.transaction((trans) => {
-    trans.executeSql('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, format VARCHAR, pageCount INTEGER, wordCount INTEGER, due DATE, subject VARCHAR)',
+    trans.executeSql('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, format VARCHAR, page_count INTEGER, slide_cout INTEGER, word_count INTEGER, start_date DATE, due DATE, subject VARCHAR)',
       null,
       () => console.log('tasks table up'),
       (e) => console.error('err in createTaskTable ', e)
     )
   })
+};
+
+export async function addTask(task) {
+  database.transaction((trans) => {
+    trans.executeSql('INSERT INTO tasks (title, format, page_count, slide_count, word_count, start_date, due, subject) VALUES = (?, ?, ?, ?, ?, ?, ?, ?)',
+      [task.title, task.type, task.maxPages, task.maxSlides, task.maxWords, task.startDate, task.dueDate, task.subject],
+      () => console.log('Task ', task, ' added'),
+      (e) => console.error('err in addTask ', e)
+    )
+  });
 };
 
 export async function getTasks(setTasks) {

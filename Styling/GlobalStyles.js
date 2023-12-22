@@ -15,5 +15,14 @@ export const globalStyle = StyleSheet.create({
         flex: 1,
         backgroundColor: globalColours.backgroundPrimary
     },
+    input: {
+        borderWidth: 4,
+        borderRadius: 20,
+        padding: 10,
+        fontSize: 20,
+        marginHorizontal: 20,
+        marginVertical: 5,
+        backgroundColor: 'white',
+    },
 });
 

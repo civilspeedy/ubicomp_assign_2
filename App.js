@@ -10,9 +10,13 @@ import ScoreStorePage from './Pages/ScoreStorePage';
 import { globalColours } from './Styling/GlobalStyles';
 import StartPage from './Pages/StartPage';
 import CreateTaskPage from './Pages/CreateTaskPage';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { createTaskTable } from './Logic/Database/DatabaseManipulation';
 
 export default function App() {
   const Stack = createMaterialTopTabNavigator(); // https://reactnavigation.org/docs/material-top-tab-navigator
+
+  createTaskTable();
 
   return (
     <NavigationContainer style={styles.container}>

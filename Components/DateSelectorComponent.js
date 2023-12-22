@@ -3,9 +3,8 @@ import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
 import DateTimePicker from "react-native-ui-datepicker";
 
-export default function DateSlector({ date }) {
+export default function DateSlector({ date, setDate }) {
     const [isOpen, setOpen] = useState(false);
-    const [selectedDate, setDate] = useState(null);
     const [title, setTitle] = useState('Select Date')
 
     // https://github.com/farhoudshapouran/react-native-ui-datepicker
@@ -23,7 +22,7 @@ export default function DateSlector({ date }) {
             {isOpen && (
                 <View style={styles.calendarContainer}>
                     <DateTimePicker
-                        value={selectedDate}
+                        value={date}
                         onValueChange={(justSelected) => {
                             setDate(justSelected);
                             setTitle(justSelected);
