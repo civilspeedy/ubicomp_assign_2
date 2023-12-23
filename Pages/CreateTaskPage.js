@@ -40,13 +40,26 @@ export default function CreateTaskPage() {
                 maxPages={pages}
                 setMaxPages={setPages}
                 subject={subject}
-                setSubject={setSubject} />
+                setSubject={setSubject}
+                startDate={start}
+                setStartDate={setStart}
+                slides={slides}
+                setSlides={setSlides} />
 
-            <Pressable onPress={() => addTask({
-                _title: title, _type: type, _maxSlides: slides,
-                _startDate: formateDateAsString(start), _dueDate: formateDateAsString(due),
-                _subject: subject, done: false,
-            })}>
+            <Pressable onPress={() => {
+                let formattedStartDate = start;
+                let formattedDueDate = due;
+                if (type != 'chore') {
+                    formattedStartDate = formateDateAsString(start);
+                    formattedDueDate = formateDateAsString(due)
+                };
+                addTask({
+                    _title: title, _type: type, _maxSlides: slides, _maxPages: pages,
+                    _maxSlides: slides, _startDate: formattedStartDate, _dueDate: formattedDueDate,
+                    _subject: subject, done: false,
+                })
+
+            }}>
                 <AntDesign name='checkcircle' size={50} color={'lightgreen'} />
             </Pressable>
         </View>

@@ -100,8 +100,8 @@ export async function addTask(task) {
     database.transaction((trans) => {
       trans.executeSql(
         `INSERT INTO tasks 
-        (title, format, page_count, slide_count, word_count, start_date, due, subject) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        (title, format, page_count, slide_count, word_count, start_date, due, subject, done) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 
         [task._title, task._type, task._maxPages, task._maxSlides,
         task._maxWords, task._startDate, task._dueDate, task._subject,
@@ -132,18 +132,25 @@ export async function deleteTask(taskName) {
 };
 
 
-export async function getTasks(setTasks) {
-  database.transaction((trans) => {
-    trans.executeSql('SELECT * FROM tasks',
-      null,
-      (_, { rows: { _array } }) => {
-        console.log('Got tasks from db ', _array)
-        //setTasks(_array)
-      },
-      (e) => console.error('err in getTasks', e)
-    )
-  })
-};
+export async function getTasks() {
+  return new Promise((resolve, reject) => {
+    database.transaction((trans) => {
+      trans.executeSql(
+        'SELECT * FROM tasks',
+        null,
+        (_, { rows: { _array } }) => {
+          console.log('Got tasks from db ', _array);
+          resolve(_array);
+        },
+        (e) => {
+          console.error('err in getTasks', e);
+          reject(e);
+        }
+      );
+    });
+  });
+}
+
 
 // const [item1, item2] = await Promise.all([getfunc1, getFunt2]) <- saw on reddit meant to be a fast way of getting things
 // https://www.reddit.com/r/reactnative/comments/t2cdwh/quicktip_to_perform_multiple_tasks_at_once_like_a/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
