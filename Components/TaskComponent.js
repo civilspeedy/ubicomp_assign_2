@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Pressable, LayoutAnimation } from "react-native
 import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
 import { impactAsync } from "expo-haptics";
 
-export default function TaskComponent({ task }) {
+export default function TaskComponent({ task, due }) {
     const [expanded, setexpanded] = useState(false); // https://reactnative.dev/docs/layoutanimation/
     console.log('in component', task);
     return (

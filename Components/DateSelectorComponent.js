@@ -6,7 +6,7 @@ import { formateDateAsString } from "../Logic/DateFormater";
 
 export default function DateSlector({ date, setDate }) {
     const [isOpen, setOpen] = useState(false);
-    const [title, setTitle] = useState('Select Date')
+    const [title, setTitle] = useState('Select Date');
 
     // https://github.com/farhoudshapouran/react-native-ui-datepicker
     return (
@@ -25,7 +25,6 @@ export default function DateSlector({ date, setDate }) {
                     <DateTimePicker
                         value={date}
                         onValueChange={(justSelected) => {
-                            console.log(typeof justSelected);
                             setDate(justSelected);
                             setTitle(formateDateAsString(justSelected));
                         }}
