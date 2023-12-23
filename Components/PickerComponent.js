@@ -9,7 +9,7 @@ export default function Picker({ pickerLabel, items, setValue }) {
 
 
     return (
-        <View>
+        <View >
             <Pressable style={styles.button}
                 onPress={() => {
                     smoothExpansionAnimation();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { globalColours, globalStyle } from "../Styling/GlobalStyles";
+import { globalColours } from "../Styling/GlobalStyles";
 import DateSlector from "../Components/DateSelectorComponent";
 import TitleText from "../Components/TitleTextComponent";
 import Picker from "../Components/PickerComponent";

@@ -3,7 +3,7 @@ import { globalStyle } from "../Styling/GlobalStyles"
 
 export default function NumberInput({ value, setValue, placeholder }) {
     return (
-        <View>
+        <View >
             <TextInput style={globalStyle.input}
                 keyboardType='numeric'
                 value={value}

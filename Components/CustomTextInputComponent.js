@@ -3,7 +3,7 @@ import { globalStyle } from "../Styling/GlobalStyles";
 
 export default function CustomTextInput({ value, setValue, placeholder }) {
     return (
-        <View>
+        <View >
             <TextInput style={globalStyle.input}
                 onChangeText={setValue}
                 value={value}
