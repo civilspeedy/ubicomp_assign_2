@@ -8,6 +8,7 @@ import { AntDesign } from "@expo/vector-icons";
 import TaskTypeEntry from "../Components/TaskTypeEntriesComponent";
 import CustomTextInput from "../Components/CustomTextInputComponent";
 import { addTask } from "../Logic/Database/DatabaseManipulation";
+import { formateDateAsString } from "../Logic/DateFormater";
 
 export default function CreateTaskPage() {
     const [title, setTitle] = useState('');
@@ -41,7 +42,11 @@ export default function CreateTaskPage() {
                 subject={subject}
                 setSubject={setSubject} />
 
-            <Pressable onPress={() => addTask({ _title: 'test', _type: 'test', _maxSlides: 0, _startDate: '00-00-00', _dueDate: '00-00-00', _subject: 'test' })}>
+            <Pressable onPress={() => addTask({
+                _title: title, _type: type, _maxSlides: slides,
+                _startDate: formateDateAsString(start), _dueDate: formateDateAsString(due),
+                _subject: subject, done: false,
+            })}>
                 <AntDesign name='checkcircle' size={50} color={'lightgreen'} />
             </Pressable>
         </View>

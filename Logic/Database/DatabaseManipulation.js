@@ -63,7 +63,7 @@ export async function getScore(setScore) {
       null,
       (_, { rows: { _array } }) => {
         console.log('got score from db', _array)
-        setScore(_array)
+        setScore(_array) // probably wont work
       },
       (e) => console.error('err in getScore', e)
     )
@@ -72,7 +72,11 @@ export async function getScore(setScore) {
 
 export async function createTaskTable() {
   database.transaction((trans) => {
-    trans.executeSql('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, format VARCHAR, page_count INTEGER, slide_count INTEGER, word_count INTEGER, start_date DATE, due DATE, subject VARCHAR)',
+    trans.executeSql(`CREATE TABLE IF NOT EXISTS 
+    tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, 
+      format VARCHAR, page_count INTEGER, slide_count INTEGER, 
+      word_count INTEGER, start_date DATE, due DATE, 
+      subject VARCHAR, done BOOL)`,
       null,
       () => console.log('tasks table up'),
       (e) => console.error('err in createTaskTable ', e)
@@ -91,21 +95,42 @@ export async function dropTaskTable() {
 };
 
 export async function addTask(task) {
-  console.log('task -> ', task);
-
+  // while asking chatGPT for debuging help it suggested putting transaction in a try statement
   try {
-    database.transaction(async (trans) => {
+    database.transaction((trans) => {
       trans.executeSql(
-        'INSERT INTO tasks (title, format, page_count, slide_count, word_count, start_date, due, subject) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        [task._title, task._type, task._maxPages, task._maxSlides, task._maxWords, task._startDate, task._dueDate, task._subject,],
-        (_) => console.log('Task added:', task),
-        (_, e) => console.error('Error in addTask: ', e)
+        `INSERT INTO tasks 
+        (title, format, page_count, slide_count, word_count, start_date, due, subject) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+
+        [task._title, task._type, task._maxPages, task._maxSlides,
+        task._maxWords, task._startDate, task._dueDate, task._subject,
+        task.done],
+
+        (_) => console.log('Task added: ', task),
+        (_, e) => console.error('err in addTask ', e)
       );
     });
-  } catch (error) {
-    console.error('Transaction error: ', error);
-  }
-}
+  } catch (e) {
+    console.error('Unable to excute SQL, table may not be made', e);
+  };
+};
+
+export async function deleteTask(taskName) {
+  try {
+    database.transaction((trans) => {
+      trans.executeSql('DELETE FROM tasks WHERE name=?',
+        [taskName],
+
+        (_) => console.log('task deleted: ', task),
+        (_, e) => console.error('err in deleteTask ', e)
+      );
+    })
+  } catch (e) {
+    console.error('Unable to excute SQL, table may not be made', e);
+  };
+};
+
 
 export async function getTasks(setTasks) {
   database.transaction((trans) => {
@@ -113,7 +138,7 @@ export async function getTasks(setTasks) {
       null,
       (_, { rows: { _array } }) => {
         console.log('Got tasks from db ', _array)
-        setTasks(_array)
+        //setTasks(_array)
       },
       (e) => console.error('err in getTasks', e)
     )

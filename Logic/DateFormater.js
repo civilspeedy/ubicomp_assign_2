@@ -7,8 +7,13 @@ export function formatDate(dateString) {
 };
 
 export function formateDateAsString(date) {
-    const newDate = formatDate(date);
-    return `${newDate.day}-${newDate.month}-${newDate.year}`;
+    if (date == '') {
+        return '00-00-00';
+    } else {
+        const newDate = formatDate(date);
+        return `${newDate.day}-${newDate.month}-${newDate.year}`;
+    };
+
 };
 
 export function timeFormat(timeInSeconds) {

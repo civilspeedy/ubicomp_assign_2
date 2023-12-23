@@ -11,13 +11,12 @@ import { globalColours } from './Styling/GlobalStyles';
 import StartPage from './Pages/StartPage';
 import CreateTaskPage from './Pages/CreateTaskPage';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { createTaskTable, dropTaskTable } from './Logic/Database/DatabaseManipulation';
+import { createTaskTable, dropTaskTable, getTasks } from './Logic/Database/DatabaseManipulation';
 
 export default function App() {
   const Stack = createMaterialTopTabNavigator(); // https://reactnavigation.org/docs/material-top-tab-navigator
 
-  dropTaskTable();
-  createTaskTable();
+  getTasks('test');
 
   return (
     <NavigationContainer style={styles.container}>
