@@ -3,50 +3,59 @@ import { AgendaList, Calendar, CalendarProvider, ExpandableCalendar } from "reac
 import TaskComponent from "./TaskComponent";
 import { getTasks } from "../Logic/Database/DatabaseManipulation";
 import { useEffect, useState } from "react";
+import { formateDateForSQL } from "../Logic/DateFormater";
+import { smoothExpansionAnimation } from "../Styling/GlobalStyles";
+import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 
 export default function CustomCanendar() {
     const [tasks, setTasks] = useState([]);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(null);
 
     const fetchTasks = async () => {
         try {
             const fetchedTasks = await getTasks();
             setTasks(fetchedTasks);
-        } catch (error) {
-            console.error(error);
+        } catch (e) {
+            console.error(e);
         }
     };
+
 
     useEffect(() => {
         fetchTasks();
     }, []);
 
+    const pressHandler = (day) => {
+        setDate(day.dateString);
+        fetchTasks();
+    };
+
     const displayTasks = () => {
         const tasksOnDate = [];
-        console.log('called')
 
         for (let i = 0; i < tasks.length; i++) {
-            console.log(tasks[i].due, date);
-            if (tasks[i].due == date || tasks[i].start_date == date) {
+            const newDate = formateDateForSQL(date);
+            if (tasks[i].due == newDate || tasks[i].start_date == newDate) {
                 tasksOnDate.push(tasks[i]);
             }
         };
 
-        console.log(tasksOnDate)
+        smoothExpansionAnimation();
         return (
-            <View>
-                {tasksOnDate.map((task, index) => {
-                    console.log('tasks on date:', tasksOnDate);
-                    <TaskComponent task={task} key={index} />
-                })}
-            </View>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <ScrollView>
+                    {tasksOnDate.map((task, index) => (
+                        <TaskComponent task={task} key={index} />
+                    ))}
+                </ScrollView>
+            </GestureHandlerRootView>
         )
     };
 
 
     return (
         <View style={styles.container}>
-            <Calendar onDayPress={(day) => setDate(day.dateString) /**needs formatting */} />
+            <Calendar onDayPress={(day) => pressHandler(day)} />
 
             {displayTasks()}
 

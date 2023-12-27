@@ -30,3 +30,12 @@ export function timeFormat(timeInSeconds) {
 export function minutesToSecond(timeInMinutes) {
     return timeInMinutes / 60;
 };
+
+export function formateDateForSQL(date) {
+    if (date != null) {
+        return `${date.substring(8, 10)}-${date.substring(5, 7)}-${date.substring(0, 4)}`;
+    } else {
+        return null;
+    };
+
+}
