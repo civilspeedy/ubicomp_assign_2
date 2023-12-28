@@ -7,6 +7,7 @@ import DateSlector from "./DateSelectorComponent";
 export default function TaskTypeEntry({
     type, maxWords, setMaxWords, maxPages, setMaxPages, subject, setSubject, slides, setSlides, startDate, setStartDate
 }) {
+    // https://reactnative.dev/docs/layoutanimation/
     smoothExpansionAnimation();
     if (type == 'Essay' || type == 'Report' || type == 'Project') {
         // word count, page count,

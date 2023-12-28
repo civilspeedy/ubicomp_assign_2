@@ -1,33 +1,35 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Pressable, LayoutAnimation } from "react-native";
 import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
+import { GestureHandlerRootView, LongPressGestureHandler, State } from "react-native-gesture-handler";
 import { impactAsync } from "expo-haptics";
 
-export default function TaskComponent({ task, due }) {
-    const [expanded, setexpanded] = useState(false); // https://reactnative.dev/docs/layoutanimation/
-    console.log('in component', task);
+
+export default function TaskComponent({ task }) {
+    const [longPressed, isLongPressed] = useState(false);
+    // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
+    const onLongPress = (event) => {
+        if (event.nativeEvent.state === State.BEGAN) {
+            impactAsync();
+        } else if (event.nativeEvent.state === State.END) {
+            console.log('long press!')
+        }
+    };
+
+
+
+
     return (
-        <View>
-            <Pressable style={styles.container}
-                onPress={() => {
-                    impactAsync();
-                    smoothExpansionAnimation();
-                    setexpanded(!expanded);
-                }}>
+        <GestureHandlerRootView>
+            <LongPressGestureHandler
+                onGestureEvent={onLongPress}
+                onHandlerStateChange={onLongPress}>
                 <View style={styles.pressableTextWrapper}>
                     <Text style={styles.taskTitle}>{task.title}</Text>
                     <Text style={styles.taskStatText}>Due: {task.due}</Text>
                 </View>
-            </Pressable>
-
-            {expanded && (
-                <View style={styles.extendedDisplay}>
-                    <Text style={styles.taskStatText}>Max Words: {task.maxWords}</Text>
-                    <Text style={styles.taskStatText}>Subject: {task.subject}</Text>
-                    <Text style={styles.taskStatText}>Task Type: {task.type}</Text>
-                </View>
-            )}
-        </View>
+            </LongPressGestureHandler>
+        </GestureHandlerRootView>
     );
 };
 

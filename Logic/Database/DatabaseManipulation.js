@@ -139,7 +139,7 @@ export async function getTasks() {
         'SELECT * FROM tasks',
         null,
         (_, { rows: { _array } }) => {
-          console.log('Got tasks from db ', _array);
+          console.log('Got tasks from db ');
           resolve(_array);
         },
         (e) => {
