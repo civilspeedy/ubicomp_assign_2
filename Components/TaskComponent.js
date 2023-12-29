@@ -1,41 +1,40 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Pressable, LayoutAnimation, Alert } from "react-native";
 import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
-import { GestureHandlerRootView, LongPressGestureHandler, State } from "react-native-gesture-handler";
 import { impactAsync } from "expo-haptics";
+import { GestureDetector, Gesture } from "react-native-gesture-handler";
 
 
 export default function TaskComponent({ task }) {
     const [isExtended, setExtended] = useState(false);
     // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
-    const onLongPress = (event) => {
-        if (event.nativeEvent.state === State.ACTIVE) {
-            impactAsync();
 
-        } else if (event.nativeEvent.state === State.END) {
-            smoothExpansionAnimation();
-            setExtended(!isExtended);
-        } else if (event.nativeEvent.state === State.CANCELLED) {
-            Alert.alert("Long Press for menu")
-        }
-    };
+    const whenLongPress = Gesture.LongPress().onEnd((e, success) => {
+        impactAsync();
+        smoothExpansionAnimation();
+        setExtended(!isExtended)
+    });
+
 
     return (
         <View style={styles.container}>
-            <LongPressGestureHandler
-                onGestureEvent={onLongPress}
-                onHandlerStateChange={onLongPress}>
+            <GestureDetector
+                gesture={whenLongPress}
+                shouldCancelWhenOutside={true}
+                onPressOut={() => impactAsync()}>
                 <View style={styles.pressableTextWrapper}>
                     <Text style={styles.taskTitle}>{task.title}</Text>
                     <Text style={styles.taskStatText}>Due: {task.due}</Text>
                 </View>
-            </LongPressGestureHandler>
-            {isExtended && (
-                <Pressable>
-                    <Text>test</Text>
-                </Pressable>
-            )}
-        </View>
+            </GestureDetector>
+            {
+                isExtended && ( //needs filling
+                    <Pressable>
+                        <Text>test</Text>
+                    </Pressable>
+                )
+            }
+        </View >
     );
 };
 
