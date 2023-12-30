@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Pressable, LayoutAnimation, Alert } from "react
 import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
 import { impactAsync } from "expo-haptics";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 
 export default function TaskComponent({ task }) {
@@ -22,16 +23,29 @@ export default function TaskComponent({ task }) {
                 gesture={whenLongPress}
                 shouldCancelWhenOutside={true}
                 onPressOut={() => impactAsync()}>
-                <View style={styles.pressableTextWrapper}>
-                    <Text style={styles.taskTitle}>{task.title}</Text>
-                    <Text style={styles.taskStatText}>Due: {task.due}</Text>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <View style={styles.pressableTextWrapper}>
+                        <Text style={styles.taskTitle}>{task.title}</Text>
+                        <Text style={styles.taskStatText}>Due: {task.due}</Text>
+                    </View>
+                    {!isExtended && (
+                        <Pressable style={styles.doneButton}>
+                            <MaterialCommunityIcons name='check-bold' size={70} />
+                        </Pressable>
+                    )}
+
                 </View>
             </GestureDetector>
             {
                 isExtended && ( //needs filling
-                    <Pressable>
-                        <Text>test</Text>
-                    </Pressable>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <Pressable style={styles.editButton}>
+                            <MaterialCommunityIcons name="lead-pencil" size={70} />
+                        </Pressable>
+                        <Pressable style={styles.deleteButton}>
+                            <MaterialCommunityIcons name="delete-outline" size={70} />
+                        </Pressable>
+                    </View>
                 )
             }
         </View >
@@ -50,19 +64,44 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
 
     },
-    extendedDisplay: {
-        backgroundColor: globalColours.tertiary,
-        borderRadius: 20,
-        marginHorizontal: 20,
-        padding: 5,
-    },
     pressableTextWrapper: {
         flex: 1,
         backgroundColor: globalColours.backgroundSecondary,
         padding: 10,
         borderRadius: 20,
         alignItems: 'flex-start',
+    },
+    container: {
+        backgroundColor: globalColours.backgroundSecondary,
+        flex: 1,
         marginHorizontal: 20,
         marginVertical: 5,
-    }
+        flexDirection: 'row',
+        borderRadius: 20,
+    },
+
+    editButton: {
+        backgroundColor: 'orange',
+        flex: 1,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    deleteButton: {
+        backgroundColor: 'red',
+        flex: 1,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10,
+    },
+    doneButton: {
+        flex: 1,
+        backgroundColor: globalColours.tertiary,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+        margin: 10
+    },
 })

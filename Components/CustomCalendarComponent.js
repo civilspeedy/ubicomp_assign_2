@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-import { AgendaList, Calendar, CalendarProvider, ExpandableCalendar } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import TaskComponent from "./TaskComponent";
 import { getTasks } from "../Logic/Database/DatabaseManipulation";
 import { useEffect, useState } from "react";
 import { formateDateForSQL } from "../Logic/DateFormater";
-import { smoothExpansionAnimation } from "../Styling/GlobalStyles";
+import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 
 export default function CustomCanendar() {
@@ -43,7 +43,7 @@ export default function CustomCanendar() {
         smoothExpansionAnimation();
         return (
             <GestureHandlerRootView style={{ flex: 1 }}>
-                <ScrollView>
+                <ScrollView style={{ flex: 1 }}>
                     {tasksOnDate.map((task, index) => (
                         <TaskComponent task={task} key={index} />
                     ))}
@@ -55,7 +55,7 @@ export default function CustomCanendar() {
 
     return (
         <View style={styles.container}>
-            <Calendar onDayPress={(day) => pressHandler(day)} />
+            <Calendar onDayPress={(day) => pressHandler(day)} style={styles.calendar} />
 
             {displayTasks()}
 
@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     calendar: {
-        flex: 1
+        padding: 10,
+        backgroundColor: globalColours.backgroundSecondary,
     },
     provider: {
         flex: 1
