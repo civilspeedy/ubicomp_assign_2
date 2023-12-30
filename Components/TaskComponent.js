@@ -4,6 +4,7 @@ import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles
 import { impactAsync } from "expo-haptics";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { deleteTask } from "../Logic/Database/DatabaseManipulation";
 
 
 export default function TaskComponent({ task }) {
@@ -15,6 +16,23 @@ export default function TaskComponent({ task }) {
         smoothExpansionAnimation();
         setExtended(!isExtended)
     });
+
+    const promptDeleteTask = () => {
+        console.log('delete button');
+        Alert.alert('Delete Task?',
+            'Are you sure you want to delete this Task?',
+            [{ text: 'No', },
+            { text: 'yes', onPress: () => deleteTask(task.title) }
+            ])
+    };
+
+    const editTask = () => {
+        console.log('edit button')
+    };
+
+    const doneTask = () => {
+        console.log('done button')
+    };
 
 
     return (
@@ -29,8 +47,8 @@ export default function TaskComponent({ task }) {
                         <Text style={styles.taskStatText}>Due: {task.due}</Text>
                     </View>
                     {!isExtended && (
-                        <Pressable style={styles.doneButton}>
-                            <MaterialCommunityIcons name='check-bold' size={70} />
+                        <Pressable style={styles.doneButton} onPress={doneTask}>
+                            <MaterialCommunityIcons name='check' size={70} />
                         </Pressable>
                     )}
 
@@ -39,10 +57,10 @@ export default function TaskComponent({ task }) {
             {
                 isExtended && ( //needs filling
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <Pressable style={styles.editButton}>
+                        <Pressable style={styles.editButton} onPress={editTask}>
                             <MaterialCommunityIcons name="lead-pencil" size={70} />
                         </Pressable>
-                        <Pressable style={styles.deleteButton}>
+                        <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
                             <MaterialCommunityIcons name="delete-outline" size={70} />
                         </Pressable>
                     </View>
@@ -97,7 +115,6 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     doneButton: {
-        flex: 1,
         backgroundColor: globalColours.tertiary,
         justifyContent: 'center',
         alignItems: 'center',

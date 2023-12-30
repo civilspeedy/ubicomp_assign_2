@@ -119,7 +119,7 @@ export async function addTask(task) {
 export async function deleteTask(taskName) {
   try {
     database.transaction((trans) => {
-      trans.executeSql('DELETE FROM tasks WHERE name=?',
+      trans.executeSql('DELETE FROM tasks WHERE title=?',
         [taskName],
 
         (_) => console.log('task deleted: ', task),

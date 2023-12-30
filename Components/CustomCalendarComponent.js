@@ -56,6 +56,9 @@ export default function CustomCanendar() {
     return (
         <View style={styles.container}>
             <Calendar onDayPress={(day) => pressHandler(day)} style={styles.calendar} />
+            <View style={styles.textContainer}>
+                <Text>Long press a task for options</Text>
+            </View>
 
             {displayTasks()}
 
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: globalColours.backgroundSecondary,
     },
-    provider: {
-        flex: 1
-    }
+    textContainer: {
+        alignItems: 'center'
+    },
 });
