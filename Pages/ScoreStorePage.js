@@ -1,4 +1,4 @@
-import TitleText from "../Components/TitleTextComponent";
+import TitleText from "../Components/Output Components/TitleTextComponent";
 import { View } from "react-native";
 import { globalStyle } from "../Styling/GlobalStyles";
 

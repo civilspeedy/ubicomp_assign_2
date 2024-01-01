@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from "react-native";
-import { globalColours } from "../Styling/GlobalStyles";
+import { globalColours } from "../../Styling/GlobalStyles";
 import { AntDesign } from "@expo/vector-icons";
 
 

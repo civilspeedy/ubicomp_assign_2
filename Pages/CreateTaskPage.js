@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { globalColours } from "../Styling/GlobalStyles";
-import DateSlector from "../Components/DateSelectorComponent";
-import TitleText from "../Components/TitleTextComponent";
-import Picker from "../Components/PickerComponent";
+import DateSlector from "../Components/Input Components/DateSelectorComponent";
+import TitleText from "../Components/Output Components/TitleTextComponent";
+import Picker from "../Components/Input Components/PickerComponent";
 import { AntDesign } from "@expo/vector-icons";
 import TaskTypeEntry from "../Components/TaskTypeEntriesComponent";
-import CustomTextInput from "../Components/CustomTextInputComponent";
+import CustomTextInput from "../Components/Input Components/CustomTextInputComponent";
 import { addTask } from "../Logic/Database/DatabaseManipulation";
 import { formateDateAsString } from "../Logic/DateFormater";
 
@@ -14,8 +14,8 @@ export default function CreateTaskPage() {
     const [title, setTitle] = useState('');
     const [type, setType] = useState('');
     const [maxWords, setMaxWords] = useState('');
-    const [due, setDue] = useState(''); // needs input made
-    const [start, setStart] = useState(''); // needs input made
+    const [due, setDue] = useState('');
+    const [start, setStart] = useState('');
     const [pages, setPages] = useState('');
     const [slides, setSlides] = useState('');
     const [subject, setSubject] = useState('');
@@ -56,8 +56,8 @@ export default function CreateTaskPage() {
                 };
                 addTask({
                     _title: title, _type: type, _maxSlides: slides, _maxPages: pages,
-                    _maxSlides: slides, _startDate: formattedStartDate, _dueDate: formattedDueDate,
-                    _subject: subject, done: false,
+                    _maxWords: maxWords, _maxSlides: slides, _startDate: formattedStartDate,
+                    _dueDate: formattedDueDate, _subject: subject, done: false,
                 })
 
             }}>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
+import { globalColours, smoothExpansionAnimation } from "../../Styling/GlobalStyles";
 import DateTimePicker from "react-native-ui-datepicker";
-import { formateDateAsString } from "../Logic/DateFormater";
+import { formateDateAsString } from "../../Logic/DateFormater";
 
 export default function DateSlector({ date, setDate }) {
     const [isOpen, setOpen] = useState(false);

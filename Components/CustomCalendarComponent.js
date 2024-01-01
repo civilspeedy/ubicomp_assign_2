@@ -15,6 +15,7 @@ export default function CustomCanendar() {
         try {
             const fetchedTasks = await getTasks();
             setTasks(fetchedTasks);
+            console.log(tasks)
         } catch (e) {
             console.error(e);
         }
@@ -76,6 +77,8 @@ const styles = StyleSheet.create({
     calendar: {
         padding: 10,
         backgroundColor: globalColours.backgroundSecondary,
+        margin: 10,
+        borderRadius: 20,
     },
     textContainer: {
         alignItems: 'center'

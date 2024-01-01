@@ -151,11 +151,12 @@ export async function getTasks() {
   });
 }
 
-export async function updateTask(task) {
+export async function updateTask(task, originalTitle) {
   try {
     database.transaction((trans) => {
       trans.executeSql(`UPDATE tasks 
       SET format = ?, 
+      title = ?,
       page_count = ?,
       slide_count = ?,
       word_count = ?,
@@ -164,8 +165,8 @@ export async function updateTask(task) {
       subject = ?,
       done = ?
       WHERE title = ?`,
-        [task.format, task.pageCount, task.slideCount, task.wordCount, task.startDate, task.dueDate,
-        task.subject, task.done, task.tile],
+        [task._format, task._title, task._pageCount, task._slideCount, task._wordCount, task._startDate, task._dueDate,
+        task._subject, task._done, originalTitle],
         (_) => console.log('task updated'),
         (_, e) => console.error('err in updateTask ', e)
       );

@@ -1,7 +1,6 @@
-import { PureComponent, useState } from "react";
-import { LayoutAnimation, Pressable, StyleSheet, Text, View } from "react-native";
-import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
-import { impactAsync } from "expo-haptics";
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { globalColours, smoothExpansionAnimation } from "../../Styling/GlobalStyles";
 
 export default function Picker({ pickerLabel, items, setValue }) {
     const [expanded, setexpanded] = useState(false);

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { globalColours, globalStyle } from "../Styling/GlobalStyles";
-import TitleText from "../Components/TitleTextComponent";
+import TitleText from "../Components/Output Components/TitleTextComponent";
 import { timeFormat } from "../Logic/DateFormater";
 import { useState } from "react";
 import CurrentTask from "../Components/CurrentTaskComponent";

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import TitleText from "../Components/TitleTextComponent";
+import TitleText from "../Components/Output Components/TitleTextComponent";
 import { globalStyle } from "../Styling/GlobalStyles";
 
 export default function StreakPage() {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import TitleText from "../Components/TitleTextComponent";
+import TitleText from "../Components/Output Components/TitleTextComponent";
 import { globalColours, globalStyle } from "../Styling/GlobalStyles"
 
 import TaskComponent from "../Components/TaskComponent";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { formatDate } from "../Logic/DateFormater";
-import PointsAvailable from "../Components/PointsAvailableComponent";
+import PointsAvailable from "../Components/Output Components/PointsAvailableComponent";
 
 
 export default function TodayPage() {

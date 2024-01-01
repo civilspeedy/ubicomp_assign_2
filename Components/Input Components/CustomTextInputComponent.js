@@ -1,5 +1,5 @@
 import { TextInput, View } from "react-native";
-import { globalStyle } from "../Styling/GlobalStyles";
+import { globalStyle } from "../../Styling/GlobalStyles";
 
 export default function CustomTextInput({ value, setValue, placeholder }) {
     return (

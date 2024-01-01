@@ -5,6 +5,7 @@ import { impactAsync } from "expo-haptics";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { deleteTask } from "../Logic/Database/DatabaseManipulation";
+import EditModal from "./EditModalComponent";
 
 
 export default function TaskComponent({ task, fetchTasks }) {
@@ -29,10 +30,6 @@ export default function TaskComponent({ task, fetchTasks }) {
                 }
             }
             ])
-    };
-
-    const editTask = () => {
-        console.log('edit button')
     };
 
     const doneTask = () => {
@@ -62,9 +59,7 @@ export default function TaskComponent({ task, fetchTasks }) {
             {
                 isExtended && ( //needs filling
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <Pressable style={styles.editButton} onPress={editTask}>
-                            <MaterialCommunityIcons name="lead-pencil" size={70} />
-                        </Pressable>
+                        <EditModal task={task} fetchTasks={fetchTasks} />
                         <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
                             <MaterialCommunityIcons name="delete-outline" size={70} />
                         </Pressable>
@@ -103,14 +98,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
 
-    editButton: {
-        backgroundColor: 'orange',
-        flex: 1,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 10,
-    },
     deleteButton: {
         backgroundColor: 'red',
         flex: 1,
