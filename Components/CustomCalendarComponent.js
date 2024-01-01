@@ -23,7 +23,6 @@ export default function CustomCanendar() {
 
     useEffect(() => {
         fetchTasks();
-        console.log(tasks);
     }, []);
 
     const pressHandler = (day) => {
@@ -46,7 +45,7 @@ export default function CustomCanendar() {
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <ScrollView style={{ flex: 1 }}>
                     {tasksOnDate.map((task, index) => (
-                        <TaskComponent task={task} key={index} />
+                        <TaskComponent task={task} fetchTasks={fetchTasks} key={index} />
                     ))}
                 </ScrollView>
             </GestureHandlerRootView>

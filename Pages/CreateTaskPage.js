@@ -60,8 +60,7 @@ export default function CreateTaskPage() {
                     _subject: subject, done: false,
                 })
 
-            }}
-                style={{ backgroundColor: 'red' }}>
+            }}>
                 <AntDesign name='checkcircle' size={50} color={'lightgreen'} />
             </Pressable>
         </View>

@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { deleteTask } from "../Logic/Database/DatabaseManipulation";
 
 
-export default function TaskComponent({ task }) {
+export default function TaskComponent({ task, fetchTasks }) {
     const [isExtended, setExtended] = useState(false);
     // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
 
@@ -22,7 +22,12 @@ export default function TaskComponent({ task }) {
         Alert.alert('Delete Task?',
             'Are you sure you want to delete this Task?',
             [{ text: 'No', },
-            { text: 'yes', onPress: () => deleteTask(task.title) }
+            {
+                text: 'yes', onPress: () => {
+                    deleteTask(task.title);
+                    fetchTasks();
+                }
+            }
             ])
     };
 
