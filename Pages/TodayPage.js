@@ -10,16 +10,6 @@ import PointsAvailable from "../Components/PointsAvailableComponent";
 
 
 export default function TodayPage() {
-    const dummyTask = {
-        title: 'Essay',
-        due: '2023-03-12',
-        maxWords: 1000,
-        wordCount: 0,
-        subject: 'ubi comp',
-        type: 'essay',
-    }
-
-    console.log("date format test ", formatDate(dummyTask.due));
 
     const [points, setPoints] = useState(0);
     const [tasks, setTasks] = useState([]);

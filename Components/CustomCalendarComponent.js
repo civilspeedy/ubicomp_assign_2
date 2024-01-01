@@ -23,6 +23,7 @@ export default function CustomCanendar() {
 
     useEffect(() => {
         fetchTasks();
+        console.log(tasks);
     }, []);
 
     const pressHandler = (day) => {

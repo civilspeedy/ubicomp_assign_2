@@ -122,7 +122,7 @@ export async function deleteTask(taskName) {
       trans.executeSql('DELETE FROM tasks WHERE title=?',
         [taskName],
 
-        (_) => console.log('task deleted: ', task),
+        (_) => console.log('task deleted: ', taskName),
         (_, e) => console.error('err in deleteTask ', e)
       );
     })

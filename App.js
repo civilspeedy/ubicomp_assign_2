@@ -14,7 +14,7 @@ import { createTaskTable, dropTaskTable } from './Logic/Database/DatabaseManipul
 
 export default function App() {
   const Stack = createMaterialTopTabNavigator(); // https://reactnavigation.org/docs/material-top-tab-navigator
-
+  createTaskTable();
 
   return (
     <NavigationContainer style={styles.container}>
