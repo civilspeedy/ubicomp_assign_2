@@ -35,10 +35,14 @@ export default function CustomCanendar() {
         const tasksOnDate = [];
 
         for (let i = 0; i < tasks.length; i++) {
+            console.log(tasks[i].done)
             const newDate = formateDateForSQL(date);
-            if (tasks[i].due == newDate || tasks[i].start_date == newDate) {
-                tasksOnDate.push(tasks[i]);
-            }
+            if (tasks[i].done == 0) {
+                if (tasks[i].due == newDate || tasks[i].start_date == newDate) {
+                    tasksOnDate.push(tasks[i]);
+                }
+            };
+
         };
 
         smoothExpansionAnimation();

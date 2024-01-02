@@ -162,19 +162,29 @@ export async function updateTask(task, originalTitle) {
       word_count = ?,
       start_date = ?,
       due = ?,
-      subject = ?,
-      done = ?
+      subject = ?
       WHERE title = ?`,
         [task._format, task._title, task._pageCount, task._slideCount, task._wordCount, task._startDate, task._dueDate,
-        task._subject, task._done, originalTitle],
+        task._subject, originalTitle],
         (_) => console.log('task updated'),
         (_, e) => console.error('err in updateTask ', e)
       );
     })
   } catch (e) {
-    console.error("task may not exist")
-  }
+    console.error(e);
+  };
 };
 
-// const [item1, item2] = await Promise.all([getfunc1, getFunt2]) <- saw on reddit meant to be a fast way of getting things
-// https://www.reddit.com/r/reactnative/comments/t2cdwh/quicktip_to_perform_multiple_tasks_at_once_like_a/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+export async function setTaskDone(task, isDone) {
+  try {
+    database.transaction((trans) => {
+      trans.executeSql('UPDATE tasks SET done = ? WHERE title = ?',
+        [isDone, task.title],
+        (_) => console.log(task.title, ' set to done')),
+        (_, e) => console.error('err in setTaskToDone ', e
+        );
+    });
+  } catch (e) {
+    console.error(e);
+  };
+};

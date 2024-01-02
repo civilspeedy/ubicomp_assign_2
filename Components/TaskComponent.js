@@ -4,7 +4,7 @@ import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles
 import { impactAsync } from "expo-haptics";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { deleteTask } from "../Logic/Database/DatabaseManipulation";
+import { deleteTask, setTaskDone } from "../Logic/Database/DatabaseManipulation";
 import EditModal from "./EditModalComponent";
 
 
@@ -33,7 +33,8 @@ export default function TaskComponent({ task, fetchTasks }) {
     };
 
     const doneTask = () => {
-        console.log('done button')
+        setTaskDone(task, true);
+        fetchTasks();
     };
 
 
