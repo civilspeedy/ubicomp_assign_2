@@ -1,27 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import TitleText from "../Components/Output Components/TitleTextComponent";
-import { globalColours, globalStyle } from "../Styling/GlobalStyles"
+import { globalStyle } from "../Styling/GlobalStyles"
 
-import TaskComponent from "../Components/TaskComponent";
-import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
-import { formatDate } from "../Logic/DateFormater";
 import PointsAvailable from "../Components/Output Components/PointsAvailableComponent";
+import { getTasks } from "../Logic/Database/DatabaseManipulation";
+import DisplayTasks from "../Components/Output Components/taskDisplayComponent";
+import { formateDateForSQL } from "../Logic/DateFormater";
 
 
 export default function TodayPage() {
-
     const [points, setPoints] = useState(0);
     const [tasks, setTasks] = useState([]);
-    const [taskHeader, setHeader] = useState('');
+    const [dueToday, setDueToday] = useState([]);
+    const [startToday, setStartToday] = useState([]);
+
+    const fetchTasks = async () => {
+        try {
+            const fetchedTasks = await getTasks();
+            setTasks(fetchedTasks);
+        } catch (e) {
+            console.error(e);
+        };
+    };
 
     useEffect(() => {
-        if (tasks.length == 0) {
-            setHeader('No Tasks For Today');
-        } else {
-            setHeader('Tasks for Today:');
-        }
-    }, [tasks]);
+        fetchTasks();
+
+    }, []);
+
+
+    const today = new Date();
+
+    // Get day, month, and year
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Note: Month is zero-based
+    const year = String(today.getFullYear()).slice(2); // Use slice(2) to get the last two digits of the year
+
+    // Format the date as dd-mm-yy
+    const date = `${day}-${month}-${year}`;
+
+    console.log('date:', date);
 
     return (
         <View style={globalStyle.pageContainer}>
@@ -29,28 +48,10 @@ export default function TodayPage() {
 
             <PointsAvailable points={points} />
 
-            <View style={styles.tasksHeader}>
-                <Text style={styles.headerText}>{taskHeader}</Text>
-            </View>
-
-            <GestureHandlerRootView style={styles.taskContainer}>
-                <ScrollView>
-                    {tasks.map((task, index) => {
-                        <TaskComponent key={index} task={task} />
-                    })}
-                </ScrollView>
-            </GestureHandlerRootView>
+            <DisplayTasks tasks={tasks} date={date} fetchTasks={fetchTasks} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    tasksHeader: {
-        alignItems: 'center',
-    },
-    headerText: {
-        fontWeight: 'bold',
-        fontSize: 30,
-        color: globalColours.secondary
-    },
 });

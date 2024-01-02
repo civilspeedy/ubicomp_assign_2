@@ -19,7 +19,6 @@ export default function TaskComponent({ task, fetchTasks }) {
     });
 
     const promptDeleteTask = () => {
-        console.log('delete button');
         Alert.alert('Delete Task?',
             'Are you sure you want to delete this Task?',
             [{ text: 'No', },

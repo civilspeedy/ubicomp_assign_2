@@ -48,8 +48,8 @@ export default function CreateTaskPage() {
 
             <Pressable onPress={() => {
                 let formattedStartDate = start;
-                console.log('due:', due)
                 let formattedDueDate = due;
+
                 if (type != 'chore') {
                     formattedStartDate = formateDateAsString(start);
                     formattedDueDate = formateDateAsString(due)

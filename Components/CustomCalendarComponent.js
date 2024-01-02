@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Calendar } from "react-native-calendars";
-import TaskComponent from "./TaskComponent";
 import { getTasks } from "../Logic/Database/DatabaseManipulation";
 import { useEffect, useState } from "react";
-import { formateDateForSQL } from "../Logic/DateFormater";
-import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
-import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
+import { globalColours } from "../Styling/GlobalStyles";
+import DisplayTasks from "./Output Components/taskDisplayComponent";
 
 export default function CustomCanendar() {
     const [tasks, setTasks] = useState([]);
@@ -15,12 +13,10 @@ export default function CustomCanendar() {
         try {
             const fetchedTasks = await getTasks();
             setTasks(fetchedTasks);
-            console.log(tasks)
         } catch (e) {
             console.error(e);
-        }
+        };
     };
-
 
     useEffect(() => {
         fetchTasks();
@@ -31,33 +27,6 @@ export default function CustomCanendar() {
         fetchTasks();
     };
 
-    const displayTasks = () => {
-        const tasksOnDate = [];
-
-        for (let i = 0; i < tasks.length; i++) {
-            console.log(tasks[i].done)
-            const newDate = formateDateForSQL(date);
-            if (tasks[i].done == 0) {
-                if (tasks[i].due == newDate || tasks[i].start_date == newDate) {
-                    tasksOnDate.push(tasks[i]);
-                }
-            };
-
-        };
-
-        smoothExpansionAnimation();
-        return (
-            <GestureHandlerRootView style={{ flex: 1 }}>
-                <ScrollView style={{ flex: 1 }}>
-                    {tasksOnDate.map((task, index) => (
-                        <TaskComponent task={task} fetchTasks={fetchTasks} key={index} />
-                    ))}
-                </ScrollView>
-            </GestureHandlerRootView>
-        )
-    };
-
-
     return (
         <View style={styles.container}>
             <Calendar onDayPress={(day) => pressHandler(day)} style={styles.calendar} />
@@ -65,7 +34,7 @@ export default function CustomCanendar() {
                 <Text>Long press a task for options</Text>
             </View>
 
-            {displayTasks()}
+            <DisplayTasks tasks={tasks} date={date} fetchTasks={fetchTasks} />
 
         </View>
     )

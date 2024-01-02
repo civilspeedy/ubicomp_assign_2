@@ -107,7 +107,7 @@ export async function addTask(task) {
         task._maxWords, task._startDate, task._dueDate, task._subject,
         task.done],
 
-        (_) => console.log('Task added: ', task),
+        (_) => console.log('Task added: ', task._title),
         (_, e) => console.error('err in addTask ', e)
       );
     });
@@ -139,7 +139,7 @@ export async function getTasks() {
         'SELECT * FROM tasks',
         null,
         (_, { rows: { _array } }) => {
-          console.log('Got tasks from db ');
+          console.log('Got tasks from db');
           resolve(_array);
         },
         (e) => {
@@ -149,7 +149,7 @@ export async function getTasks() {
       );
     });
   });
-}
+};
 
 export async function updateTask(task, originalTitle) {
   try {
@@ -164,8 +164,8 @@ export async function updateTask(task, originalTitle) {
       due = ?,
       subject = ?
       WHERE title = ?`,
-        [task._format, task._title, task._pageCount, task._slideCount, task._wordCount, task._startDate, task._dueDate,
-        task._subject, originalTitle],
+        [task._format, task._title, task._pageCount, task._slideCount, task._wordCount,
+        task._startDate, task._dueDate, task._subject, originalTitle],
         (_) => console.log('task updated'),
         (_, e) => console.error('err in updateTask ', e)
       );

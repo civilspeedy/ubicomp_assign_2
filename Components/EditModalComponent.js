@@ -103,7 +103,6 @@ export default function EditModal({ task, fetchTasks }) {
                         </Pressable>
 
                         <Pressable style={styles.confirmEdit} onPress={() => {
-                            console.log(title)
                             updateTask({
                                 _pageCount: maxPages, _slideCount: slides, _wordCount: maxWords,
                                 _startDate: startDate, _dueDate: due, _subject: subject, done: false,
@@ -111,15 +110,10 @@ export default function EditModal({ task, fetchTasks }) {
                             }, task.title);
                             fetchTasks();
                             setOpen(false);
+                        }}>
 
-                        }
-
-                        }>
                             <Text>Confrim Changes</Text>
                         </Pressable>
-
-
-
                     </View>
                 </ScrollView>
             </Modal>
