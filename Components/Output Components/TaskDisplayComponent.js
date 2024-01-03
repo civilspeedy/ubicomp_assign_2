@@ -6,7 +6,6 @@ import { smoothExpansionAnimation } from "../../Styling/GlobalStyles";
 
 export default function DisplayTasks({ tasks, date, fetchTasks }) {
     const tasksOnDate = [];
-    console.log('new date >>>>>>', date);
     for (let i = 0; i < tasks.length; i++) {
         const newDate = formateDateForSQL(date);
 
@@ -15,9 +14,7 @@ export default function DisplayTasks({ tasks, date, fetchTasks }) {
                 tasksOnDate.push(tasks[i]);
             }
         };
-
     };
-
 
     smoothExpansionAnimation();
     return (

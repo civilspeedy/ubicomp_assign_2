@@ -3,24 +3,10 @@ import { Calendar } from "react-native-calendars";
 import { getTasks } from "../Logic/Database/DatabaseManipulation";
 import { useEffect, useState } from "react";
 import { globalColours } from "../Styling/GlobalStyles";
-import DisplayTasks from "./Output Components/taskDisplayComponent";
+import DisplayTasks from "./Output Components/TaskDisplayComponent";
 
-export default function CustomCanendar() {
-    const [tasks, setTasks] = useState([]);
+export default function CustomCanendar({ fetchTasks, tasks }) {
     const [date, setDate] = useState(null);
-
-    const fetchTasks = async () => {
-        try {
-            const fetchedTasks = await getTasks();
-            setTasks(fetchedTasks);
-        } catch (e) {
-            console.error(e);
-        };
-    };
-
-    useEffect(() => {
-        fetchTasks();
-    }, []);
 
     const pressHandler = (day) => {
         setDate(day.dateString);

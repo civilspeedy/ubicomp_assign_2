@@ -10,11 +10,28 @@ import ScoreStorePage from './Pages/ScoreStorePage';
 import { globalColours } from './Styling/GlobalStyles';
 import StartPage from './Pages/StartPage';
 import CreateTaskPage from './Pages/CreateTaskPage';
-import { createTaskTable, dropTaskTable } from './Logic/Database/DatabaseManipulation';
+import { createTaskTable, getTasks } from './Logic/Database/DatabaseManipulation';
+import { useEffect, useState } from 'react';
 
 export default function App() {
-  const Stack = createMaterialTopTabNavigator(); // https://reactnavigation.org/docs/material-top-tab-navigator
-  createTaskTable();
+  createTaskTable(); //seems to be called every fetchTask() call but isn't causing issues for now
+  const [tasks, setTasks] = useState([]);
+
+  const Stack = createMaterialTopTabNavigator();
+  // https://reactnavigation.org/docs/material-top-tab-navigator
+
+  const fetchTasks = async () => {
+    try {
+      const fetchedTasks = await getTasks();
+      setTasks(fetchedTasks);
+    } catch (e) {
+      console.error(e);
+    };
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   return (
     <NavigationContainer style={styles.container}>
@@ -24,10 +41,16 @@ export default function App() {
           "display": "none"
         }
       }}>
-        <Stack.Screen name='Today' component={TodayPage} />
+        <Stack.Screen name='Today'>
+          {props => <TodayPage fetchTasks={fetchTasks} tasks={tasks} />}
+        </Stack.Screen>
         <Stack.Screen name='create task' component={CreateTaskPage} />
         <Stack.Screen name='Start' component={StartPage} />
-        <Stack.Screen name='Calendar' component={CalendarPage} />
+        <Stack.Screen name='Calendar'>
+          { //chatGPT
+            props => <CalendarPage fetchTasks={fetchTasks} tasks={tasks} />}
+        </Stack.Screen>
+
         <Stack.Screen name="Streak" component={StreakPage} />
         <Stack.Screen name="ScoreStore" component={ScoreStorePage} />
       </Stack.Navigator>

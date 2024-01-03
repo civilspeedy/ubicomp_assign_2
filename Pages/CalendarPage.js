@@ -1,19 +1,16 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import TitleText from "../Components/Output Components/TitleTextComponent";
-import { globalColours, globalStyle } from "../Styling/GlobalStyles";
+import { globalStyle } from "../Styling/GlobalStyles";
 import CustomCanendar from "../Components/CustomCalendarComponent";
 
 
-export default function CalendarPage() {
+export default function CalendarPage({ fetchTasks, tasks }) {
     return (
         <View style={globalStyle.pageContainer}>
             <TitleText titleName={"CALENDAR"} />
 
-            <CustomCanendar />
+            <CustomCanendar fetchTasks={fetchTasks} tasks={tasks} />
         </View>
     )
 };
-
-const styles = StyleSheet.create({
-});

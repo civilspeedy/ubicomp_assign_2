@@ -14,7 +14,6 @@ export default function TaskComponent({ task, fetchTasks }) {
 
     const whenLongPress = Gesture.LongPress().onEnd((e, success) => {
         impactAsync();
-        smoothExpansionAnimation();
         setExtended(!isExtended)
     });
 
