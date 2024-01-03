@@ -20,7 +20,7 @@ export default function CustomCanendar({ fetchTasks, tasks }) {
                 <Text>Long press a task for options</Text>
             </View>
 
-            <DisplayTasks tasks={tasks} date={date} fetchTasks={fetchTasks} />
+            <DisplayTasks tasks={tasks} date={date} fetchTasks={fetchTasks} displayType={'both'} />
 
         </View>
     )
