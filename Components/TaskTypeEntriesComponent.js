@@ -15,7 +15,8 @@ export default function TaskTypeEntry({
             <View>
                 <DateSlector
                     date={startDate}
-                    setDate={setStartDate} />
+                    setDate={setStartDate}
+                    placeholder={"Select A Start Date"} />
 
                 <NumberInput
                     value={maxWords}
@@ -41,7 +42,8 @@ export default function TaskTypeEntry({
             <View>
                 <DateSlector
                     date={startDate}
-                    setDate={setStartDate} />
+                    setDate={setStartDate}
+                    placeholder={"Select A Start Date"} />
 
                 <NumberInput
                     value={slides}

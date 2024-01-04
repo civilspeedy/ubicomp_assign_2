@@ -4,9 +4,9 @@ import { globalColours, smoothExpansionAnimation } from "../../Styling/GlobalSty
 import DateTimePicker from "react-native-ui-datepicker";
 import { formateDateAsString } from "../../Logic/DateFormater";
 
-export default function DateSlector({ date, setDate }) {
+export default function DateSlector({ date, setDate, placeholder }) {
     const [isOpen, setOpen] = useState(false);
-    const [title, setTitle] = useState('Select Date');
+    const [title, setTitle] = useState(placeholder);
 
     // https://github.com/farhoudshapouran/react-native-ui-datepicker
     return (

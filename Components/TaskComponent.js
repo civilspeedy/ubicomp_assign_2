@@ -13,6 +13,7 @@ export default function TaskComponent({ task, fetchTasks }) {
     // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
 
     const whenLongPress = Gesture.LongPress().onEnd((e, success) => {
+        smoothExpansionAnimation();
         impactAsync();
         setExtended(!isExtended)
     });
