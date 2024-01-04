@@ -42,7 +42,6 @@ export default function DisplayTasks({ tasks, date, fetchTasks, displayType }) {
             };
         };
     };
-
     smoothExpansionAnimation();
     if (tasksOnDate.length == 0) {
         return (

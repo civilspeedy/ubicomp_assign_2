@@ -2,16 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useEffect, useState } from 'react';
 
 import CalendarPage from './Pages/CalendarPage';
 import TodayPage from './Pages/TodayPage';
-import StreakPage from './Pages/StreakPage';
-import ScoreStorePage from './Pages/ScoreStorePage';
 import { globalColours } from './Styling/GlobalStyles';
 import StartPage from './Pages/StartPage';
 import CreateTaskPage from './Pages/CreateTaskPage';
-import { createTaskTable, getTasks } from './Logic/Database/DatabaseManipulation';
-import { useEffect, useState } from 'react';
+import { createTaskTable, dropTaskTable, getTasks } from './Logic/Database/DatabaseManipulation';
+
 
 export default function App() {
   createTaskTable(); //seems to be called every fetchTask() call but isn't causing issues for now
@@ -47,12 +46,9 @@ export default function App() {
         <Stack.Screen name='create task' component={CreateTaskPage} />
         <Stack.Screen name='Start' component={StartPage} />
         <Stack.Screen name='Calendar'>
-          { //chatGPT
+          { //chatGPT 
             props => <CalendarPage fetchTasks={fetchTasks} tasks={tasks} />}
         </Stack.Screen>
-
-        <Stack.Screen name="Streak" component={StreakPage} />
-        <Stack.Screen name="ScoreStore" component={ScoreStorePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

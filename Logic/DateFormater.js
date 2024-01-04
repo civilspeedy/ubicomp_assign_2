@@ -16,6 +16,10 @@ export function formateDateAsString(date) {
 
 };
 
+export function formateDateYearFirst(date) {
+    return `${date.substring(6, 10)}-${date.substring(3, 5)}-${date.substring(0, 2)}`
+};
+
 export function timeFormat(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60); // chatGPT was asked how to format time in seconds into a 00:00 layout
     let seconds = Math.floor(timeInSeconds % 60);
