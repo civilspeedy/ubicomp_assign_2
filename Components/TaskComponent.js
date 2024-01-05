@@ -6,6 +6,7 @@ import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { deleteTask, setTaskDone } from "../Logic/Database/DatabaseManipulation";
 import EditModal from "./EditModalComponent";
+import MoreButton from "./Output Components/MoreButtonComponent";
 
 
 export default function TaskComponent({ task, fetchTasks }) {
@@ -36,35 +37,43 @@ export default function TaskComponent({ task, fetchTasks }) {
         fetchTasks();
     };
 
-
     return (
         <View style={styles.container}>
             <GestureDetector
                 gesture={whenLongPress}
                 shouldCancelWhenOutside={true}
                 onPressOut={() => impactAsync()}>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 1, flexDirection: 'row', alignContent: 'flex-start' }}>
                     <View style={styles.pressableTextWrapper}>
                         <Text style={styles.taskTitle}>{task.title}</Text>
-                        <Text style={styles.taskStatText}>Due: {task.due}</Text>
+                        <Text style={styles.taskStatText}>{task.due}</Text>
                     </View>
                     {!isExtended && (
-                        <Pressable style={styles.doneButton} onPress={doneTask}>
-                            <MaterialCommunityIcons name='check' size={70} />
-                        </Pressable>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <MoreButton task={task} />
+                            <Pressable style={styles.doneButton} onPress={doneTask}>
+                                <MaterialCommunityIcons
+                                    name='check'
+                                    size={70}
+                                    style={{ alignSelf: 'center', flex: 1 }} />
+                            </Pressable>
+                        </View>
                     )}
 
                 </View>
-            </GestureDetector>
-            {
-                isExtended && ( //needs filling
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <EditModal task={task} fetchTasks={fetchTasks} />
-                        <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
-                            <MaterialCommunityIcons name="delete-outline" size={70} />
-                        </Pressable>
-                    </View>
-                )
+            </GestureDetector >
+            {isExtended && (
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <EditModal task={task} fetchTasks={fetchTasks} />
+
+                    <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
+                        <MaterialCommunityIcons
+                            name="delete-outline"
+                            size={70}
+                            style={{ alignSelf: 'center' }} />
+                    </Pressable>
+                </View>
+            )
             }
         </View >
     );
@@ -97,7 +106,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderRadius: 20,
     },
-
     deleteButton: {
         backgroundColor: 'red',
         flex: 1,
@@ -109,8 +117,10 @@ const styles = StyleSheet.create({
     doneButton: {
         backgroundColor: globalColours.tertiary,
         justifyContent: 'center',
+        alignContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        margin: 10
+        margin: 10,
+        flex: 1
     },
 })
