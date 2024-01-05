@@ -10,7 +10,6 @@ import CustomTextInput from "../Components/Input Components/CustomTextInputCompo
 import { addTask } from "../Logic/Database/DatabaseManipulation";
 import { formateDateAsString } from "../Logic/DateFormater";
 import { impactAsync } from "expo-haptics";
-import CustomLabel from "../Components/Output Components/LabelComponent";
 
 export default function CreateTaskPage({ fetchTasks, setOpen }) {
     const [title, setTitle] = useState('');
@@ -22,8 +21,6 @@ export default function CreateTaskPage({ fetchTasks, setOpen }) {
     const [slides, setSlides] = useState('');
     const [subject, setSubject] = useState('');
     const taskTypes = ['Essay', 'Report', 'Presentation', 'Chore', 'General', 'Meeting', 'Project'];
-
-    // maybe have a tickbox on the side that show when you complete each task entry
 
     return (
         <View style={styles.view}>
@@ -45,7 +42,6 @@ export default function CreateTaskPage({ fetchTasks, setOpen }) {
                     setDate={setDue}
                     placeholder={'Select The Due Date'} />
             </View>
-
 
             <TaskTypeEntry
                 type={type}

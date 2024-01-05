@@ -1,30 +1,29 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { globalColours, globalStyle } from "../Styling/GlobalStyles";
+import { globalColours, globalStyle, smoothExpansionAnimation } from "../Styling/GlobalStyles";
 import TitleText from "../Components/Output Components/TitleTextComponent";
-import { timeFormat } from "../Logic/DateFormater";
+import { minutesToSeconds, timeFormat } from "../Logic/DateFormater";
 import { useState } from "react";
-import CurrentTask from "../Components/CurrentTaskComponent";
 
 export default function StartPage() {
-    const [currentTask, setCurrentTask] = useState(null);
     const [timerActive, setTimer] = useState(false);
-    const [duration, setDuration] = useState(0);
+    const [duration, setDuration] = useState(minutesToSeconds(25));
     const [firstStart, setFirstStart] = useState(true);
     const [key, setKey] = useState(0);
 
-
-    const dummyTask = {
-        title: 'Essay',
-        due: '2023-03-12',
-        maxWords: 1000,
-        wordCount: 0,
-        subject: 'ubi comp',
-        type: 'essay',
+    const timerCycle = () => {
+        if (duration == 25) {
+            setTimer(false);
+            setDuration(minutesToSeconds(5));
+            setKey(prevKey => prevKey + 1);
+        };
+        if (duration(duration == 5)) {
+            setTimer(false);
+            setDuration(minutesToSeconds(5));
+            setKey(prevKey => prevKey + 1);
+        };
     };
-
-
-    // timer from https://www.npmjs.com/package/react-native-countdown-circle-timer
+    smoothExpansionAnimation();
     return (
         <View style={globalStyle.pageContainer}>
             <TitleText titleName={'START'} />
@@ -33,6 +32,7 @@ export default function StartPage() {
                     key={key}
                     isPlaying={timerActive}
                     duration={duration}
+                    onComplete={timerCycle}
                     colors={[globalColours.secondary, globalColours.tertiary]}
                 >
                     {({ remainingTime }) => <Text style={styles.countdownText}>{timeFormat(remainingTime)}</Text>}
@@ -67,10 +67,6 @@ export default function StartPage() {
                     </Pressable>
                 )}
 
-                <View style={styles.tasksContainer}>
-                    <Text style={styles.currentTaskHeader}>Current Task:</Text>
-                    <CurrentTask task={dummyTask} />
-                </View>
             </View>
         </View >
     )
@@ -78,10 +74,8 @@ export default function StartPage() {
 
 const styles = StyleSheet.create({
     timerContainer: {
-        justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center',
         flex: 1,
     },
     countdownText: {

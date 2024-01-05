@@ -31,8 +31,8 @@ export function timeFormat(timeInSeconds) {
     return `${minutes}:${seconds}`;
 };
 
-export function minutesToSecond(timeInMinutes) {
-    return timeInMinutes / 60;
+export function minutesToSeconds(timeInMinutes) {
+    return timeInMinutes * 60;
 };
 
 export function formateDateForSQL(date) {
@@ -42,4 +42,4 @@ export function formateDateForSQL(date) {
         return null;
     };
 
-}
+};
