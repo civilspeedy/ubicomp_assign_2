@@ -12,7 +12,7 @@ import { formateDateAsString } from "../Logic/DateFormater";
 import { impactAsync } from "expo-haptics";
 import CustomLabel from "../Components/Output Components/LabelComponent";
 
-export default function CreateTaskPage() {
+export default function CreateTaskPage({ fetchTasks, setOpen }) {
     const [title, setTitle] = useState('');
     const [type, setType] = useState('');
     const [maxWords, setMaxWords] = useState('');
@@ -61,32 +61,39 @@ export default function CreateTaskPage() {
                 slides={slides}
                 setSlides={setSlides} />
 
-            <Pressable onPress={() => {
-                impactAsync();
-                if (type != 'chore') {
-                    formattedStartDate = formateDateAsString(start);
-                    formattedDueDate = formateDateAsString(due)
-                };
+            <View style={styles.buttonContainer}>
+                <Pressable style={styles.closeButton} onPress={() => setOpen(false)}>
+                    <MaterialCommunityIcons name='cancel' size={70} />
+                </Pressable>
+                <Pressable onPress={() => {
+                    impactAsync();
+                    if (type != 'chore') {
+                        formattedStartDate = formateDateAsString(start);
+                        formattedDueDate = formateDateAsString(due)
+                    };
 
-                if (title == '') {
-                    Alert.alert("Your task must have a title!");
-                } else {
-                    let formattedStartDate = start;
-                    let formattedDueDate = due;
-                    addTask({
-                        _title: title, _type: type, _maxSlides: slides, _maxPages: pages,
-                        _maxWords: maxWords, _maxSlides: slides, _startDate: formattedStartDate,
-                        _dueDate: formattedDueDate, _subject: subject, done: false,
-                    })
-                };
-            }}
-                style={styles.button}>
-                <MaterialCommunityIcons
-                    name='check'
-                    size={70}
-                    color={'black'}
-                    selectionColor={'blue'} />
-            </Pressable>
+                    if (title == '') {
+                        Alert.alert("Your task must have a title!");
+                    } else {
+                        let formattedStartDate = start;
+                        let formattedDueDate = due;
+                        addTask({
+                            _title: title, _type: type, _maxSlides: slides, _maxPages: pages,
+                            _maxWords: maxWords, _maxSlides: slides, _startDate: formattedStartDate,
+                            _dueDate: formattedDueDate, _subject: subject, done: false,
+                        })
+                        fetchTasks();
+                        setOpen(false);
+                    };
+                }}
+                    style={styles.button}>
+                    <MaterialCommunityIcons
+                        name='check'
+                        size={70}
+                        color={'black'}
+                        selectionColor={'blue'} />
+                </Pressable>
+            </View>
         </View >
     )
 };
@@ -97,11 +104,28 @@ const styles = StyleSheet.create({
         flex: 1
     },
     button: {
+        flex: 1,
         marginVertical: 10,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: globalColours.tertiary,
         borderRadius: 20,
-        marginHorizontal: 20,
+        marginHorizontal: 10,
+        height: 70,
+    },
+    closeButton: {
+        flex: 1,
+        backgroundColor: 'red',
+        borderRadius: 20,
+        marginHorizontal: 10,
+        marginVertical: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 70,
+    },
+    buttonContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        height: '25%'
     },
 });

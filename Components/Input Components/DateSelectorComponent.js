@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { globalColours, smoothExpansionAnimation } from "../../Styling/GlobalStyles";
 import DateTimePicker from "react-native-ui-datepicker";
 import { formateDateAsString } from "../../Logic/DateFormater";
@@ -24,9 +24,15 @@ export default function DateSlector({ date, setDate, placeholder }) {
                 <View style={styles.calendarContainer}>
                     <DateTimePicker
                         value={date}
+                        mode='date'
                         onValueChange={(justSelected) => {
-                            setDate(justSelected);
-                            setTitle(formateDateAsString(justSelected));
+                            if (justSelected != null) {
+                                date = justSelected.split(' ')[0];
+                                console.log(formateDateAsString(date));
+                                setDate(date);
+                                setTitle(formateDateAsString(justSelected));
+                            };
+
                         }}
                         selectedItemColor={globalColours.secondary}
                         headerButtonStyle={styles.calendarNextPageButtons}
