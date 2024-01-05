@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { globalColours } from "../Styling/GlobalStyles";
 import DateSlector from "../Components/Input Components/DateSelectorComponent";
 import TitleText from "../Components/Output Components/TitleTextComponent";
@@ -10,6 +10,7 @@ import CustomTextInput from "../Components/Input Components/CustomTextInputCompo
 import { addTask } from "../Logic/Database/DatabaseManipulation";
 import { formateDateAsString } from "../Logic/DateFormater";
 import { impactAsync } from "expo-haptics";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function CreateTaskPage({ fetchTasks, setOpen }) {
     const [title, setTitle] = useState('');
@@ -25,71 +26,76 @@ export default function CreateTaskPage({ fetchTasks, setOpen }) {
     return (
         <View style={styles.view}>
             <TitleText titleName={"CREATE A TASK"} />
+            <GestureHandlerRootView>
+                <ScrollView>
 
-            <CustomTextInput
-                value={title}
-                setValue={setTitle}
-                placeholder={"Give your task a name!"} />
 
-            <Picker
-                pickerLabel={'What type of Task is it?'}
-                items={taskTypes}
-                setValue={setType} />
+                    <CustomTextInput
+                        value={title}
+                        setValue={setTitle}
+                        placeholder={"Give your task a name!"} />
 
-            <View style={{ marginBottom: 5 }}>
-                <DateSlector
-                    date={due}
-                    setDate={setDue}
-                    placeholder={'Select The Due Date'} />
-            </View>
+                    <Picker
+                        pickerLabel={'What type of Task is it?'}
+                        items={taskTypes}
+                        setValue={setType} />
 
-            <TaskTypeEntry
-                type={type}
-                inputStyle={styles.input}
-                maxWords={maxWords}
-                setMaxWords={setMaxWords}
-                maxPages={pages}
-                setMaxPages={setPages}
-                subject={subject}
-                setSubject={setSubject}
-                startDate={start}
-                setStartDate={setStart}
-                slides={slides}
-                setSlides={setSlides} />
+                    <View style={{ marginBottom: 5 }}>
+                        <DateSlector
+                            date={due}
+                            setDate={setDue}
+                            placeholder={'Select The Due Date'} />
+                    </View>
 
-            <View style={styles.buttonContainer}>
-                <Pressable style={styles.closeButton} onPress={() => setOpen(false)}>
-                    <MaterialCommunityIcons name='cancel' size={70} />
-                </Pressable>
-                <Pressable onPress={() => {
-                    impactAsync();
-                    if (type != 'chore') {
-                        formattedStartDate = formateDateAsString(start);
-                        formattedDueDate = formateDateAsString(due)
-                    };
+                    <TaskTypeEntry
+                        type={type}
+                        inputStyle={styles.input}
+                        maxWords={maxWords}
+                        setMaxWords={setMaxWords}
+                        maxPages={pages}
+                        setMaxPages={setPages}
+                        subject={subject}
+                        setSubject={setSubject}
+                        startDate={start}
+                        setStartDate={setStart}
+                        slides={slides}
+                        setSlides={setSlides} />
 
-                    if (title == '') {
-                        Alert.alert("Your task must have a title!");
-                    } else {
-                        let formattedStartDate = start;
-                        let formattedDueDate = due;
-                        addTask({
-                            _title: title, _type: type, _maxSlides: slides, _maxPages: pages,
-                            _maxWords: maxWords, _maxSlides: slides, _startDate: formattedStartDate,
-                            _dueDate: formattedDueDate, _subject: subject, done: false,
-                        })
-                        fetchTasks();
-                        setOpen(false);
-                    };
-                }}
-                    style={styles.button}>
-                    <MaterialCommunityIcons
-                        name='check'
-                        size={70}
-                        color={'black'}
-                        selectionColor={'blue'} />
-                </Pressable>
-            </View>
+                    <View style={styles.buttonContainer}>
+                        <Pressable style={styles.closeButton} onPress={() => setOpen(false)}>
+                            <MaterialCommunityIcons name='cancel' size={70} />
+                        </Pressable>
+                        <Pressable onPress={() => {
+                            impactAsync();
+                            if (type != 'chore') {
+                                formattedStartDate = formateDateAsString(start);
+                                formattedDueDate = formateDateAsString(due)
+                            };
+
+                            if (title == '') {
+                                Alert.alert("Your task must have a title!");
+                            } else {
+                                let formattedStartDate = start;
+                                let formattedDueDate = due;
+                                addTask({
+                                    _title: title, _type: type, _maxSlides: slides, _maxPages: pages,
+                                    _maxWords: maxWords, _maxSlides: slides, _startDate: formattedStartDate,
+                                    _dueDate: formattedDueDate, _subject: subject, done: false,
+                                })
+                                fetchTasks();
+                                setOpen(false);
+                            };
+                        }}
+                            style={styles.button}>
+                            <MaterialCommunityIcons
+                                name='check'
+                                size={70}
+                                color={'black'}
+                                selectionColor={'blue'} />
+                        </Pressable>
+                    </View>
+                </ScrollView>
+            </GestureHandlerRootView>
         </View >
     )
 };

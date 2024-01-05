@@ -43,19 +43,20 @@ export default function TaskComponent({ task, fetchTasks }) {
                 gesture={whenLongPress}
                 shouldCancelWhenOutside={true}
                 onPressOut={() => impactAsync()}>
-                <View style={{ flex: 1, flexDirection: 'row', alignContent: 'flex-start' }}>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
                     <View style={styles.pressableTextWrapper}>
                         <Text style={styles.taskTitle}>{task.title}</Text>
                         <Text style={styles.taskStatText}>{task.due}</Text>
                     </View>
                     {!isExtended && (
                         <View style={{ flex: 1, flexDirection: 'row' }}>
+
                             <MoreButton task={task} />
+
                             <Pressable style={styles.doneButton} onPress={doneTask}>
                                 <MaterialCommunityIcons
                                     name='check'
-                                    size={70}
-                                    style={{ alignSelf: 'center', flex: 1 }} />
+                                    size={70} />
                             </Pressable>
                         </View>
                     )}
@@ -92,7 +93,6 @@ const styles = StyleSheet.create({
 
     },
     pressableTextWrapper: {
-        flex: 1,
         backgroundColor: globalColours.backgroundSecondary,
         padding: 10,
         borderRadius: 20,
@@ -116,11 +116,10 @@ const styles = StyleSheet.create({
     },
     doneButton: {
         backgroundColor: globalColours.tertiary,
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
+        flex: 1,
         borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
         margin: 10,
-        flex: 1
     },
 })
