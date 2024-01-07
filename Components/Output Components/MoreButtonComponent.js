@@ -28,9 +28,10 @@ export default function MoreButton({ task }) {
                     <DisplayBasedOnType task={task} />
                 </View>
             </Modal>
-            <Pressable style={styles.moreButton} onPress={() => setOpen(true)}>
-                <MaterialCommunityIcons name='dots-horizontal' size={70} />
-            </Pressable>
+            <Pressable style={styles.pressableTextWrapper} onPress={() => setOpen(true)}>
+                        <Text style={styles.taskTitle}>{task.title}</Text>
+                        <Text style={styles.taskStatText}>{task.due}</Text>
+                    </Pressable>
         </View >
     );
 };
@@ -38,11 +39,12 @@ export default function MoreButton({ task }) {
 const styles = StyleSheet.create({
     moreButton: {
         backgroundColor: 'orange',
-        flex: 1,
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
         margin: 10,
+        width: 70,
+        height: 70
     },
     insideModal: {
         backgroundColor: globalColours.backgroundSecondary,
@@ -69,5 +71,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
     },
-
-});
+    taskTitle: {
+        color: globalColours.secondary,
+        fontWeight: 'bold',
+        fontSize: 30,
+        alignSelf: 'center'
+    },
+    taskStatText: {
+        fontSize: 15,
+        alignSelf: 'center',
+    },
+    pressableTextWrapper: {
+        backgroundColor: globalColours.backgroundSecondary,
+        padding: 10,
+        borderRadius: 20,
+        alignItems: 'flex-start',
+    },
+}
+);

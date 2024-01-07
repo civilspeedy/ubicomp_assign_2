@@ -13,9 +13,6 @@ export default function DisplayTasks({ tasks, date, fetchTasks, displayType }) {
     };
 
     for (let i = 0; i < tasks.length; i++) {
-
-        console.log('date being compared :', _date, 'date of task: ', tasks[i].due);
-
         if (displayType == 'both') {
             if (tasks[i].done == 0) {
                 if (tasks[i].due == _date || tasks[i].start_date == _date) {

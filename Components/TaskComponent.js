@@ -44,10 +44,7 @@ export default function TaskComponent({ task, fetchTasks }) {
                 shouldCancelWhenOutside={true}
                 onPressOut={() => impactAsync()}>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <View style={styles.pressableTextWrapper}>
-                        <Text style={styles.taskTitle}>{task.title}</Text>
-                        <Text style={styles.taskStatText}>{task.due}</Text>
-                    </View>
+                    
                     {!isExtended && (
                         <View style={{ flex: 1, flexDirection: 'row' }}>
 
@@ -81,23 +78,6 @@ export default function TaskComponent({ task, fetchTasks }) {
 };
 
 const styles = StyleSheet.create({
-    taskTitle: {
-        color: globalColours.secondary,
-        fontWeight: 'bold',
-        fontSize: 30,
-        alignSelf: 'center'
-    },
-    taskStatText: {
-        fontSize: 15,
-        alignSelf: 'center',
-
-    },
-    pressableTextWrapper: {
-        backgroundColor: globalColours.backgroundSecondary,
-        padding: 10,
-        borderRadius: 20,
-        alignItems: 'flex-start',
-    },
     container: {
         backgroundColor: globalColours.backgroundSecondary,
         flex: 1,
@@ -116,10 +96,11 @@ const styles = StyleSheet.create({
     },
     doneButton: {
         backgroundColor: globalColours.tertiary,
-        flex: 1,
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
         margin: 10,
+        width: 70,
+        height: 70,
     },
 })
