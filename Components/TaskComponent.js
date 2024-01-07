@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Pressable, Alert, Text } from "react-native";
-import { globalColours, smoothExpansionAnimation } from "../Styling/GlobalStyles";
-import { impactAsync } from "expo-haptics";
-import { GestureDetector, Gesture } from "react-native-gesture-handler";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { deleteTask, setTaskDone } from "../Logic/Database/DatabaseManipulation";
-import EditModal from "./EditModalComponent";
+import React, { useState } from 'react';
+import { StyleSheet, View, Pressable, Alert, Text } from 'react-native';
+import { globalColours, smoothExpansionAnimation } from '../Styling/GlobalStyles';
+import { impactAsync } from 'expo-haptics';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { deleteTask, setTaskDone } from '../Logic/Database/DatabaseManipulation';
+import EditModal from './EditModalComponent';
+import { amazedToast, taskDoneToast, topToast } from '../Logic/Cheerleader';
 
 export default function TaskComponent({ task, fetchTasks }) {
   const [isExtended, setExtended] = useState(false);
   // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
+  let hasStartDate = task.start_date != '';
+  let hasWordCount = task.word_count != '';
+  let hasSlideCount = task.slide_count != '';
+  let hasPageCount = task.page_count != '';
 
   const whenLongPress = Gesture.LongPress().onEnd((e, success) => {
     smoothExpansionAnimation();
@@ -18,10 +23,10 @@ export default function TaskComponent({ task, fetchTasks }) {
   });
 
   const promptDeleteTask = () => {
-    Alert.alert("Delete Task?", "Are you sure you want to delete this Task?", [
-      { text: "No" },
+    Alert.alert('Delete Task?', 'Are you sure you want to delete this Task?', [
+      { text: 'No' },
       {
-        text: "yes",
+        text: 'yes',
         onPress: () => {
           deleteTask(task.title);
           fetchTasks();
@@ -32,19 +37,20 @@ export default function TaskComponent({ task, fetchTasks }) {
 
   const doneTask = () => {
     setTaskDone(task, true);
+    taskDoneToast();
     fetchTasks();
   };
 
   return (
-    <View style={styles.container}>
-      <GestureDetector
-        gesture={whenLongPress}
-        shouldCancelWhenOutside={true}
-        onPressOut={() => impactAsync()}
-      >
-        <View style={{ flex: 1, flexDirection: "row" }}>
+    <GestureDetector
+      gesture={whenLongPress}
+      shouldCancelWhenOutside={true}
+      onPressOut={() => impactAsync()}
+    >
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', flex: 1 }}>
           {!isExtended && (
-            <View style={{ flex: 1, flexDirection: "row" }}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
               <View style={styles.textWrapper}>
                 <Text style={styles.taskTitle}>{task.title}</Text>
                 <Text style={styles.taskStatText}>{task.due}</Text>
@@ -55,22 +61,58 @@ export default function TaskComponent({ task, fetchTasks }) {
               </Pressable>
             </View>
           )}
-        </View>
-      </GestureDetector>
-      {isExtended && (
-        <View style={{ flex: 1 }}>
-          <EditModal task={task} fetchTasks={fetchTasks} />
+          {isExtended && (
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={styles.details}>
+                <Text style={styles.detailsText}>{task.format}</Text>
 
-          <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
-            <MaterialCommunityIcons
-              name='delete-outline'
-              size={70}
-              style={{ alignSelf: "center" }}
-            />
-          </Pressable>
+                {hasStartDate ? (
+                  <View>
+                    <Text>Start Date: {task.start_date}</Text>
+                  </View>
+                ) : (
+                  <View></View>
+                )}
+
+                {hasWordCount ? (
+                  <View>
+                    <Text>Max Words: {task.word_count}</Text>
+                  </View>
+                ) : (
+                  <View></View>
+                )}
+
+                {hasPageCount ? (
+                  <View>
+                    <Text>Max Pages: {task.page_count}</Text>
+                  </View>
+                ) : (
+                  <View></View>
+                )}
+
+                {hasSlideCount ? (
+                  <View>
+                    <Text>Slides: {task.slide_count}</Text>
+                  </View>
+                ) : (
+                  <View></View>
+                )}
+              </View>
+
+              <EditModal task={task} fetchTasks={fetchTasks} />
+
+              <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
+                <MaterialCommunityIcons
+                  name='delete-outline'
+                  size={70}
+                  style={{ alignSelf: 'center' }}
+                />
+              </Pressable>
+            </View>
+          )}
         </View>
-      )}
-    </View>
+      </View>
+    </GestureDetector>
   );
 }
 
@@ -80,15 +122,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 20,
     marginVertical: 5,
-    flexDirection: "row",
+    flexDirection: 'row',
     borderRadius: 20,
   },
   deleteButton: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
     borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 10,
     width: 70,
     height: 70,
@@ -96,48 +137,55 @@ const styles = StyleSheet.create({
   doneButton: {
     backgroundColor: globalColours.tertiary,
     borderRadius: 20,
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     margin: 10,
     width: 70,
     height: 70,
   },
   taskTitle: {
     color: globalColours.secondary,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 30,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   taskStatText: {
     fontSize: 15,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   textWrapper: {
-    backgroundColor: globalColours.backgroundSecondary,
     padding: 10,
     flex: 1,
     borderRadius: 20,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
   title: {
     fontSize: 50,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   titleContainer: {
-    alignSelf: "center",
+    alignSelf: 'center',
     backgroundColor: globalColours.tertiary,
     paddingHorizontal: 10,
     borderRadius: 20,
     marginTop: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   formatContainer: {
-    alignSelf: "center",
+    alignSelf: 'center',
     backgroundColor: globalColours.tertiary,
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  details: {
+    flex: 1,
+    padding: 10,
+  },
+  detailsText: {
+    fontWeight: 'bold',
+    fontSize: 20,
   },
 });

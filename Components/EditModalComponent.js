@@ -1,13 +1,13 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import DateSlector from "./Input Components/DateSelectorComponent";
-import NumberInput from "./Input Components/NumberInputComponent";
-import CustomTextInput from "./Input Components/CustomTextInputComponent";
-import CustomLabel from "./Output Components/LabelComponent";
-import { globalColours } from "../Styling/GlobalStyles";
-import { ScrollView } from "react-native-gesture-handler";
-import { updateTask } from "../Logic/Database/DatabaseManipulation";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useState } from 'react';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import DateSlector from './Input Components/DateSelectorComponent';
+import NumberInput from './Input Components/NumberInputComponent';
+import CustomTextInput from './Input Components/CustomTextInputComponent';
+import CustomLabel from './Output Components/LabelComponent';
+import { globalColours } from '../Styling/GlobalStyles';
+import { ScrollView } from 'react-native-gesture-handler';
+import { updateTask } from '../Logic/Database/DatabaseManipulation';
 
 export default function EditModal({ task, fetchTasks }) {
   const [isOpen, setOpen] = useState(false);
@@ -22,38 +22,38 @@ export default function EditModal({ task, fetchTasks }) {
 
   const editBasedOnType = () => {
     const type = task.format;
-    if (type == "Essay" || type == "Report" || type == "Project") {
+    if (type == 'Essay' || type == 'Report' || type == 'Project') {
       return (
         <View>
-          <CustomLabel text={"Edit Max Word Count:"} />
+          <CustomLabel text={'Edit Max Word Count:'} />
           <NumberInput
             value={maxWords}
             setValue={setMaxWords}
             placeholder={String(task.word_count)}
           />
 
-          <CustomLabel text={"Edit Max Pages:"} />
+          <CustomLabel text={'Edit Max Pages:'} />
           <NumberInput value={maxPages} setValue={setPages} placeholder={String(task.page_count)} />
 
-          <CustomLabel text={"Edit Subject"} />
+          <CustomLabel text={'Edit Subject'} />
           <CustomTextInput value={subject} setValue={setSubject} placeholder={task.subject} />
 
-          <CustomLabel text={"Edit Due Date"} />
+          <CustomLabel text={'Edit Due Date'} />
           <DateSlector setDate={setDue} date={due} />
         </View>
       );
     }
-    if (type == "Presentation") {
+    if (type == 'Presentation') {
       return (
         <View>
-          <CustomLabel text={"Edit Slide Count:"} />
+          <CustomLabel text={'Edit Slide Count:'} />
           <NumberInput
             value={slides}
             setValue={setSlides}
             placeholder={String(task.slides_count)}
           />
 
-          <CustomLabel text={"Edit Due Date"} />
+          <CustomLabel text={'Edit Due Date'} />
           <DateSlector setDate={setDue} date={due} />
         </View>
       );
@@ -70,10 +70,10 @@ export default function EditModal({ task, fetchTasks }) {
         transparent={true}
       >
         <ScrollView style={styles.modal}>
-          <CustomLabel text={"Edit Title:"} />
+          <CustomLabel text={'Edit Title:'} />
           <CustomTextInput setValue={setTitle} value={title} placeholder={task.title} />
 
-          <CustomLabel text={"Edit Start Date:"} />
+          <CustomLabel text={'Edit Start Date:'} />
           <DateSlector date={startDate} setDate={setStart} />
 
           {editBasedOnType()}
@@ -121,17 +121,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   editButton: {
-    backgroundColor: "orange",
-    flex: 1,
+    backgroundColor: 'orange',
     borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
     width: 70,
     height: 70,
   },
   modal: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     flex: 1,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
@@ -139,7 +138,7 @@ const styles = StyleSheet.create({
   },
   bottomButtons: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   confirmEdit: {
     flex: 1,
@@ -147,16 +146,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     margin: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cancel: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: 'red',
     borderRadius: 20,
     padding: 20,
     margin: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
