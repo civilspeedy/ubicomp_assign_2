@@ -22,6 +22,7 @@ export default function TaskComponent({ task, fetchTasks }) {
     setExtended(!isExtended);
   });
 
+  const isDone = task.done == 1;
   const promptDeleteTask = () => {
     Alert.alert('Delete Task?', 'Are you sure you want to delete this Task?', [
       { text: 'No' },
@@ -53,12 +54,21 @@ export default function TaskComponent({ task, fetchTasks }) {
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <View style={styles.textWrapper}>
                 <Text style={styles.taskTitle}>{task.title}</Text>
-                <Text style={styles.taskStatText}>{task.due}</Text>
+                <Text style={styles.taskStatText}>Due: {task.due}</Text>
               </View>
-
-              <Pressable style={styles.doneButton} onPress={doneTask}>
-                <MaterialCommunityIcons name='check' size={70} />
-              </Pressable>
+              {isDone ? (
+                <View></View>
+              ) : (
+                <Pressable
+                  style={styles.doneButton}
+                  onPress={doneTask}
+                >
+                  <MaterialCommunityIcons
+                    name='check'
+                    size={70}
+                  />
+                </Pressable>
+              )}
             </View>
           )}
           {isExtended && (
@@ -99,9 +109,15 @@ export default function TaskComponent({ task, fetchTasks }) {
                 )}
               </View>
 
-              <EditModal task={task} fetchTasks={fetchTasks} />
+              <EditModal
+                task={task}
+                fetchTasks={fetchTasks}
+              />
 
-              <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
+              <Pressable
+                style={styles.deleteButton}
+                onPress={promptDeleteTask}
+              >
                 <MaterialCommunityIcons
                   name='delete-outline'
                   size={70}
