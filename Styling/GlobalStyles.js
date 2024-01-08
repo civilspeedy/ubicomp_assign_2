@@ -26,4 +26,13 @@ export const globalStyle = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: 'white',
   },
+  squareButton: {
+    backgroundColor: globalColours.backgroundSecondary,
+    borderRadius: 20,
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: 70,
+    height: 70,
+    marginHorizontal: 20,
+  },
 });

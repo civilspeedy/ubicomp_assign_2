@@ -1,25 +1,19 @@
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import TitleText from '../Components/Output Components/TitleTextComponent';
-import { globalColours, globalStyle } from '../Styling/GlobalStyles';
 import { useState } from 'react';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Modal, Pressable, StyleSheet, View, Text } from 'react-native';
+import { globalStyle } from '../Styling/GlobalStyles';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import TitleText from '../Components/Output Components/TitleTextComponent';
 import DisplayTasks from '../Components/Output Components/TaskDisplayComponent';
 
-export default function CompletedTasksPage({ tasks, fetchTasks }) {
+export default function AllTasksPage({ tasks, fetchTasks }) {
   const [isOpen, setOpen] = useState(false);
 
   return (
     <View style={{ flex: 1 }}>
-      <Modal
-        visible={isOpen}
-        transparent={true}
-        animationType='slide'
-        onRequestClose={() => setOpen(!isOpen)}
-      >
+      <Modal visible={isOpen} onRequestClose={() => setOpen(!isOpen)} animationType='slide'>
         <View style={globalStyle.pageContainer}>
-          <TitleText titleName={'COMPLETED'} />
-
-          <DisplayTasks tasks={tasks} fetchTasks={fetchTasks} displayType={'done'} />
+          <TitleText titleName={'ALL'} />
+          <DisplayTasks tasks={tasks} fetchTasks={fetchTasks} displayType={'all'} />
 
           <Pressable onPress={() => setOpen(false)} style={styles.closeButton}>
             <MaterialCommunityIcons name='cancel' size={70} />
@@ -27,7 +21,7 @@ export default function CompletedTasksPage({ tasks, fetchTasks }) {
         </View>
       </Modal>
       <Pressable style={globalStyle.squareButton} onPress={() => setOpen(true)}>
-        <MaterialIcons name='done-all' size={70} color='black' />
+        <MaterialCommunityIcons name='format-list-bulleted' size={70} />
       </Pressable>
     </View>
   );
