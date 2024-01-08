@@ -8,7 +8,7 @@ import { deleteTask, setTaskDone } from '../Logic/Database/DatabaseManipulation'
 import EditModal from './EditModalComponent';
 import { amazedToast, taskDoneToast, topToast } from '../Logic/Cheerleader';
 
-export default function TaskComponent({ task, fetchTasks }) {
+export default function TaskComponent({ task, fetchTasks, tasks }) {
   const [isExtended, setExtended] = useState(false);
   // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
   let hasStartDate = task.start_date != '';
@@ -38,8 +38,8 @@ export default function TaskComponent({ task, fetchTasks }) {
 
   const doneTask = () => {
     setTaskDone(task, true);
-    taskDoneToast();
     fetchTasks();
+    taskDoneToast(tasks);
   };
 
   return (
@@ -59,14 +59,8 @@ export default function TaskComponent({ task, fetchTasks }) {
               {isDone ? (
                 <View></View>
               ) : (
-                <Pressable
-                  style={styles.doneButton}
-                  onPress={doneTask}
-                >
-                  <MaterialCommunityIcons
-                    name='check'
-                    size={70}
-                  />
+                <Pressable style={styles.doneButton} onPress={doneTask}>
+                  <MaterialCommunityIcons name='check' size={70} />
                 </Pressable>
               )}
             </View>
@@ -109,15 +103,9 @@ export default function TaskComponent({ task, fetchTasks }) {
                 )}
               </View>
 
-              <EditModal
-                task={task}
-                fetchTasks={fetchTasks}
-              />
+              <EditModal task={task} fetchTasks={fetchTasks} />
 
-              <Pressable
-                style={styles.deleteButton}
-                onPress={promptDeleteTask}
-              >
+              <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
                 <MaterialCommunityIcons
                   name='delete-outline'
                   size={70}

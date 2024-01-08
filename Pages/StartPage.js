@@ -3,13 +3,21 @@ import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import { globalColours, globalStyle, smoothExpansionAnimation } from '../Styling/GlobalStyles';
 import TitleText from '../Components/Output Components/TitleTextComponent';
 import { minutesToSeconds, timeFormat } from '../Logic/DateFormater';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function StartPage() {
+export default function StartPage({ setPage }) {
   const [timerActive, setTimer] = useState(false);
   const [duration, setDuration] = useState(minutesToSeconds(25));
   const [firstStart, setFirstStart] = useState(true);
   const [key, setKey] = useState(0);
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('start page is being looked at');
+      setPage(3);
+    }, [])
+  );
 
   const timerCycle = () => {
     if (duration === minutesToSeconds(25)) {
@@ -42,10 +50,7 @@ export default function StartPage() {
 
         {timerActive ? (
           <View style={styles.timerControls}>
-            <Pressable
-              style={styles.pauseButton}
-              onPress={() => setTimer(false)}
-            >
+            <Pressable style={styles.pauseButton} onPress={() => setTimer(false)}>
               <Text style={styles.buttonText}>Pause Timer</Text>
             </Pressable>
 

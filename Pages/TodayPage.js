@@ -9,9 +9,16 @@ import CompletedTasksPage from './CompletedTasksPage';
 import AllTasksPage from './AllTasksPage';
 import { useFocusEffect } from '@react-navigation/native';
 
-export default function TodayPage({ fetchTasks, tasks }) {
+export default function TodayPage({ fetchTasks, tasks, setPage }) {
   let date = new Date();
   date = date.toISOString().split('T')[0];
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('today page is being looked at');
+      setPage(1);
+    }, [])
+  );
 
   return (
     <View style={globalStyle.pageContainer}>

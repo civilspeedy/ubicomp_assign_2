@@ -64,7 +64,7 @@ export default function DisplayTasks({ tasks, date, fetchTasks, displayType }) {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1 }}>
           {tasksOnDate.map((task, index) => (
-            <TaskComponent task={task} fetchTasks={fetchTasks} key={index} />
+            <TaskComponent task={task} fetchTasks={fetchTasks} key={index} tasks={tasks} />
           ))}
         </ScrollView>
       </GestureHandlerRootView>

@@ -7,12 +7,16 @@ import { useEffect, useState } from 'react';
 import CalendarPage from './Pages/CalendarPage';
 import TodayPage from './Pages/TodayPage';
 import { globalColours } from './Styling/GlobalStyles';
+import { createTaskTable, getTasks } from './Logic/Database/DatabaseManipulation';
 import StartPage from './Pages/StartPage';
-import { createTaskTable, dropTaskTable, getTasks } from './Logic/Database/DatabaseManipulation';
+import Pagination from './Components/PaginationComponent';
+import { welcomeToast } from './Logic/Cheerleader';
 
+welcomeToast();
 export default function App() {
   createTaskTable(); //seems to be called every fetchTask() call but isn't causing issues for now
   const [tasks, setTasks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const Stack = createMaterialTopTabNavigator();
   // https://reactnavigation.org/docs/material-top-tab-navigator
@@ -43,18 +47,22 @@ export default function App() {
         style={{ flex: 1 }}
       >
         <Stack.Screen name='Today'>
-          {(props) => <TodayPage fetchTasks={fetchTasks} tasks={tasks} />}
+          {(props) => <TodayPage fetchTasks={fetchTasks} tasks={tasks} setPage={setCurrentPage} />}
         </Stack.Screen>
         <Stack.Screen name='Calendar'>
           {
             //chatGPT
-            (props) => <CalendarPage fetchTasks={fetchTasks} tasks={tasks} />
+            (props) => (
+              <CalendarPage fetchTasks={fetchTasks} tasks={tasks} setPage={setCurrentPage} />
+            )
           }
         </Stack.Screen>
-        <Stack.Screen name='Start' component={StartPage} />
+        <Stack.Screen name='Start'>
+          {(props) => <StartPage setPage={setCurrentPage} />}
+        </Stack.Screen>
       </Stack.Navigator>
       <View style={styles.lowerScreen}>
-        <Text style={{ textAlign: 'center' }}>Hello</Text>
+        <Pagination pageNumber={currentPage} />
       </View>
     </NavigationContainer>
   );
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.02,
     width: '100%',
+    flex: 0.08,
   },
 });

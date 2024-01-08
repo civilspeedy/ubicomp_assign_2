@@ -4,6 +4,10 @@ export function smoothExpansionAnimation() {
   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 }
 
+export function springAnimation() {
+  LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+}
+
 export const globalColours = {
   primary: '#3abfef',
   secondary: '#3e5ba9',
