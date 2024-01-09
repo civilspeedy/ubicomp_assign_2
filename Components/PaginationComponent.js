@@ -1,13 +1,28 @@
 import { Entypo } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { smoothExpansionAnimation, springAnimation } from '../Styling/GlobalStyles';
 import { impactAsync } from 'expo-haptics';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Pagination({ pageNumber }) {
   const [dotOneSize, setDotOneSize] = useState(20);
   const [dotTwoSize, setDotTwoSize] = useState(20);
   const [dotThreeSize, setDotThreeSize] = useState(20);
+
+  const navigater = useNavigation(); // https://reactnavigation.org/docs/use-navigation/
+
+  const goToToday = () => {
+    navigater.navigate('Today');
+  };
+
+  const gotToCalendar = () => {
+    navigater.navigate('Calendar');
+  };
+
+  const gotToStart = () => {
+    navigater.navigate('Start');
+  };
 
   useEffect(() => {
     impactAsync();
@@ -30,9 +45,26 @@ export default function Pagination({ pageNumber }) {
 
   return (
     <View style={styles.dotsContainer}>
-      <Entypo name='dot-single' size={dotOneSize} />
-      <Entypo name='dot-single' size={dotTwoSize} />
-      <Entypo name='dot-single' size={dotThreeSize} />
+      <Pressable onPress={goToToday}>
+        <Entypo
+          name='dot-single'
+          size={dotOneSize}
+        />
+      </Pressable>
+
+      <Pressable onPress={gotToCalendar}>
+        <Entypo
+          name='dot-single'
+          size={dotTwoSize}
+        />
+      </Pressable>
+
+      <Pressable onPress={gotToStart}>
+        <Entypo
+          name='dot-single'
+          size={dotThreeSize}
+        />
+      </Pressable>
     </View>
   );
 }

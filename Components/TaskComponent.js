@@ -4,14 +4,20 @@ import { globalColours, smoothExpansionAnimation } from '../Styling/GlobalStyles
 import { impactAsync } from 'expo-haptics';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { deleteTask, setTaskDone } from '../Logic/Database/DatabaseManipulation';
+import {
+  addPoints,
+  deleteTask,
+  setTaskDone,
+  updatePoints,
+} from '../Logic/Database/DatabaseManipulation';
 import EditModal from './EditModalComponent';
-import { amazedToast, taskDoneToast, topToast } from '../Logic/Cheerleader';
+import { taskDoneToast } from '../Logic/Cheerleader';
 
-export default function TaskComponent({ task, fetchTasks, tasks }) {
+export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPoints }) {
   const [isExtended, setExtended] = useState(false);
   // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
   let hasStartDate = task.start_date != '';
+  let hasDueDate = task.due != '';
   let hasWordCount = task.word_count != '';
   let hasSlideCount = task.slide_count != '';
   let hasPageCount = task.page_count != '';
@@ -37,7 +43,17 @@ export default function TaskComponent({ task, fetchTasks, tasks }) {
   };
 
   const doneTask = () => {
+    console.log('p:', points);
     setTaskDone(task, true);
+
+    if (points == 0) {
+      addPoints(10);
+    }
+    if (points != 0) {
+      updatePoints(points + 10);
+    }
+
+    fetchPoints();
     fetchTasks();
     taskDoneToast(tasks);
   };
@@ -54,13 +70,23 @@ export default function TaskComponent({ task, fetchTasks, tasks }) {
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <View style={styles.textWrapper}>
                 <Text style={styles.taskTitle}>{task.title}</Text>
-                <Text style={styles.taskStatText}>Due: {task.due}</Text>
+                {hasDueDate ? (
+                  <Text style={styles.taskStatText}>Due: {task.due}</Text>
+                ) : (
+                  <View></View>
+                )}
               </View>
               {isDone ? (
                 <View></View>
               ) : (
-                <Pressable style={styles.doneButton} onPress={doneTask}>
-                  <MaterialCommunityIcons name='check' size={70} />
+                <Pressable
+                  style={styles.doneButton}
+                  onPress={doneTask}
+                >
+                  <MaterialCommunityIcons
+                    name='check'
+                    size={70}
+                  />
                 </Pressable>
               )}
             </View>
@@ -103,9 +129,15 @@ export default function TaskComponent({ task, fetchTasks, tasks }) {
                 )}
               </View>
 
-              <EditModal task={task} fetchTasks={fetchTasks} />
+              <EditModal
+                task={task}
+                fetchTasks={fetchTasks}
+              />
 
-              <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
+              <Pressable
+                style={styles.deleteButton}
+                onPress={promptDeleteTask}
+              >
                 <MaterialCommunityIcons
                   name='delete-outline'
                   size={70}

@@ -9,7 +9,7 @@ import CompletedTasksPage from './CompletedTasksPage';
 import AllTasksPage from './AllTasksPage';
 import { useFocusEffect } from '@react-navigation/native';
 
-export default function TodayPage({ fetchTasks, tasks, setPage }) {
+export default function TodayPage({ fetchTasks, tasks, setPage, points, fetchPoints }) {
   let date = new Date();
   date = date.toISOString().split('T')[0];
 
@@ -23,13 +23,29 @@ export default function TodayPage({ fetchTasks, tasks, setPage }) {
   return (
     <View style={globalStyle.pageContainer}>
       <TitleText titleName={'TODAY'} />
+
+      <Text>Points: {points}</Text>
       <View style={{ flex: 1 }}>
         <CustomLabel text={'Tasks to Start Today:'} />
-        <DisplayTasks tasks={tasks} date={date} fetchTasks={fetchTasks} displayType={'start'} />
+        <DisplayTasks
+          tasks={tasks}
+          date={date}
+          fetchTasks={fetchTasks}
+          displayType={'start'}
+          points={points}
+          fetchPoints={fetchPoints}
+        />
       </View>
       <CustomLabel text={'Tasks due Today:'} />
       <View style={{ flex: 1 }}>
-        <DisplayTasks tasks={tasks} date={date} fetchTasks={fetchTasks} displayType={'due'} />
+        <DisplayTasks
+          tasks={tasks}
+          date={date}
+          fetchTasks={fetchTasks}
+          displayType={'due'}
+          points={points}
+          fetchPoints={fetchPoints}
+        />
       </View>
 
       <View style={styles.buttonContainer}>
@@ -40,12 +56,18 @@ export default function TodayPage({ fetchTasks, tasks, setPage }) {
 
         <View style={styles.buttonIsolator}>
           <CustomLabel text={'All'} />
-          <AllTasksPage fetchTasks={fetchTasks} tasks={tasks} />
+          <AllTasksPage
+            fetchTasks={fetchTasks}
+            tasks={tasks}
+          />
         </View>
 
         <View style={styles.buttonIsolator}>
           <CustomLabel text={'Done'} />
-          <CompletedTasksPage fetchTasks={fetchTasks} tasks={tasks} />
+          <CompletedTasksPage
+            fetchTasks={fetchTasks}
+            tasks={tasks}
+          />
         </View>
       </View>
     </View>

@@ -1,23 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useEffect, useState } from 'react';
 
 import CalendarPage from './Pages/CalendarPage';
 import TodayPage from './Pages/TodayPage';
 import { globalColours } from './Styling/GlobalStyles';
-import { createTaskTable, getTasks } from './Logic/Database/DatabaseManipulation';
+import {
+  createPointsTable,
+  createTaskTable,
+  dropPointsTable,
+  getPoints,
+  getTasks,
+} from './Logic/Database/DatabaseManipulation';
 import StartPage from './Pages/StartPage';
 import Pagination from './Components/PaginationComponent';
 import { welcomeToast } from './Logic/Cheerleader';
 
 welcomeToast();
+dropPointsTable();
+createTaskTable();
+createPointsTable();
 export default function App() {
-  createTaskTable(); //seems to be called every fetchTask() call but isn't causing issues for now
+  const [points, setPoints] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-
   const Stack = createMaterialTopTabNavigator();
   // https://reactnavigation.org/docs/material-top-tab-navigator
 
@@ -30,8 +38,19 @@ export default function App() {
     }
   };
 
+  const fetchPoints = async () => {
+    try {
+      const fetchedPoints = await getPoints();
+      const pointsInt = fetchedPoints[0]?.points || 0; //gpt
+      setPoints(pointsInt);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
+    fetchPoints();
   }, []);
 
   return (
@@ -47,20 +66,33 @@ export default function App() {
         style={{ flex: 1 }}
       >
         <Stack.Screen name='Today'>
-          {(props) => <TodayPage fetchTasks={fetchTasks} tasks={tasks} setPage={setCurrentPage} />}
+          {(props) => (
+            <TodayPage
+              fetchTasks={fetchTasks}
+              tasks={tasks}
+              setPage={setCurrentPage}
+              points={points}
+              fetchPoints={fetchPoints}
+            />
+          )}
         </Stack.Screen>
         <Stack.Screen name='Calendar'>
-          {
-            //chatGPT
-            (props) => (
-              <CalendarPage fetchTasks={fetchTasks} tasks={tasks} setPage={setCurrentPage} />
-            )
-          }
+          {(props) => (
+            <CalendarPage
+              fetchTasks={fetchTasks}
+              tasks={tasks}
+              setPage={setCurrentPage}
+              points={points}
+              fetchPoints={fetchPoints}
+            />
+          )}
         </Stack.Screen>
+
         <Stack.Screen name='Start'>
           {(props) => <StartPage setPage={setCurrentPage} />}
         </Stack.Screen>
       </Stack.Navigator>
+
       <View style={styles.lowerScreen}>
         <Pagination pageNumber={currentPage} />
       </View>

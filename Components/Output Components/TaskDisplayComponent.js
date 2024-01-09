@@ -5,7 +5,14 @@ import { formateDateForSQL } from '../../Logic/DateFormater';
 import { smoothExpansionAnimation } from '../../Styling/GlobalStyles';
 import CustomLabel from './LabelComponent';
 
-export default function DisplayTasks({ tasks, date, fetchTasks, displayType }) {
+export default function DisplayTasks({
+  tasks,
+  date,
+  fetchTasks,
+  displayType,
+  points,
+  fetchPoints,
+}) {
   let _date = '';
   const tasksOnDate = [];
   if (date != null) {
@@ -44,7 +51,6 @@ export default function DisplayTasks({ tasks, date, fetchTasks, displayType }) {
       }
     }
     if (displayType == 'all') {
-      console.log('here');
       if (tasks[i].done == 0) {
         tasksOnDate.push(tasks[i]);
       }
@@ -64,7 +70,14 @@ export default function DisplayTasks({ tasks, date, fetchTasks, displayType }) {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1 }}>
           {tasksOnDate.map((task, index) => (
-            <TaskComponent task={task} fetchTasks={fetchTasks} key={index} tasks={tasks} />
+            <TaskComponent
+              task={task}
+              fetchTasks={fetchTasks}
+              key={index}
+              tasks={tasks}
+              points={points}
+              fetchPoints={fetchPoints}
+            />
           ))}
         </ScrollView>
       </GestureHandlerRootView>
