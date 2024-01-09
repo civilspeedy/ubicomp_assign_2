@@ -1,9 +1,9 @@
 import { ScrollView, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import TaskComponent from '../TaskComponent';
+import TaskComponent from './TaskComponent';
 import { formateDateForSQL } from '../../Logic/DateFormater';
-import { smoothExpansionAnimation } from '../../Styling/GlobalStyles';
-import CustomLabel from './LabelComponent';
+import { smoothExpansionAnimation } from '../../GlobalStyles';
+import CustomLabel from '../Text/Label';
 
 export default function DisplayTasks({
   tasks,

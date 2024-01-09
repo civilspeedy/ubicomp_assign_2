@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
-import { globalColours } from '../Styling/GlobalStyles';
-import DisplayTasks from './Output Components/TaskDisplayComponent';
+import { globalColours } from '../GlobalStyles';
+import DisplayTasks from './Display/DisplayTasks';
 import { formateDateYearFirst } from '../Logic/DateFormater';
 import DateTimePicker from 'react-native-ui-datepicker';
 

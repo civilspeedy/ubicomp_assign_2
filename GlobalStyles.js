@@ -1,13 +1,16 @@
+/**
+ * @file This file is used to host style and UI elements that are used in a multitude of modules and components.
+ * @module GlobalStyles
+ */
+
 import { LayoutAnimation, StyleSheet } from 'react-native';
 
+/**Calles the LayoutAnimation library for a smooth transition as a component changes. */
 export function smoothExpansionAnimation() {
   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 }
 
-export function springAnimation() {
-  LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-}
-
+/**A globally accessable object containing colour hexes to be used throughout the app. */
 export const globalColours = {
   primary: '#3abfef',
   secondary: '#3e5ba9',
@@ -15,7 +18,7 @@ export const globalColours = {
   backgroundPrimary: '#D0F1FE',
   backgroundSecondary: '#9EE2FC',
 };
-
+/**A globally accessable StyleSheet to be used in multiple components. */
 export const globalStyle = StyleSheet.create({
   pageContainer: {
     flex: 1,

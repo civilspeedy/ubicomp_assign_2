@@ -1,11 +1,11 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import DateSlector from './Input Components/DateSelectorComponent';
-import NumberInput from './Input Components/NumberInputComponent';
-import CustomTextInput from './Input Components/CustomTextInputComponent';
-import CustomLabel from './Output Components/LabelComponent';
-import { globalColours } from '../Styling/GlobalStyles';
+import DateSlector from './Input/DateSelector';
+import NumberInput from './Input/NumberInput';
+import CustomTextInput from './Input/CustomTextInput';
+import CustomLabel from './Text/Label';
+import { globalColours } from '../GlobalStyles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { updateTask } from '../Logic/Database/DatabaseManipulation';
 

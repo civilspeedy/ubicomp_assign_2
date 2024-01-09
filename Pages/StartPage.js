@@ -1,15 +1,24 @@
+/**
+ * @file contains the start page component
+ * @module StartPage
+ */
+
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
-import { globalColours, globalStyle, smoothExpansionAnimation } from '../Styling/GlobalStyles';
-import TitleText from '../Components/Output Components/TitleTextComponent';
+import { globalColours, globalStyle, smoothExpansionAnimation } from '../GlobalStyles';
+import TitleText from '../Components/Text/TitleTextComponent';
 import { minutesToSeconds, timeFormat } from '../Logic/DateFormater';
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
+import { impactAsync } from 'expo-haptics';
 
+/**A page containing a timer that lasts for 25 minutes and then for 5 and repeats
+ * @param {function} setPage- function that is passes an number value corisponding to current active page
+ * @returns {View}
+ */
 export default function StartPage({ setPage }) {
   const [timerActive, setTimer] = useState(false);
   const [duration, setDuration] = useState(minutesToSeconds(25));
-  const [firstStart, setFirstStart] = useState(true);
   const [key, setKey] = useState(0);
 
   useFocusEffect(
@@ -50,13 +59,20 @@ export default function StartPage({ setPage }) {
 
         {timerActive ? (
           <View style={styles.timerControls}>
-            <Pressable style={styles.pauseButton} onPress={() => setTimer(false)}>
+            <Pressable
+              style={styles.pauseButton}
+              onPress={() => {
+                setTimer(false);
+                impactAsync();
+              }}
+            >
               <Text style={styles.buttonText}>Pause Timer</Text>
             </Pressable>
 
             <Pressable
               style={styles.cancelButton}
               onPress={() => {
+                impactAsync();
                 setTimer(false);
                 setKey((prevKey) => prevKey + 1);
               }}
@@ -68,9 +84,7 @@ export default function StartPage({ setPage }) {
           <Pressable
             style={styles.startButton}
             onPress={() => {
-              if (firstStart) {
-                // TODO: create modal asking how long the user wants the timer to be
-              }
+              impactAsync();
               setTimer(true);
             }}
           >

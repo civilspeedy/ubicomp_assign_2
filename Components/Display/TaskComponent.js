@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Pressable, Alert, Text } from 'react-native';
-import { globalColours, smoothExpansionAnimation } from '../Styling/GlobalStyles';
+import { globalColours, smoothExpansionAnimation } from '../../GlobalStyles';
 import { impactAsync } from 'expo-haptics';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -9,9 +9,9 @@ import {
   deleteTask,
   setTaskDone,
   updatePoints,
-} from '../Logic/Database/DatabaseManipulation';
-import EditModal from './EditModalComponent';
-import { taskDoneToast } from '../Logic/Cheerleader';
+} from '../../Logic/Database/DatabaseManipulation';
+import EditModal from '../EditTaskModal';
+import { taskDoneToast } from '../../Logic/Cheerleader';
 
 export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPoints }) {
   const [isExtended, setExtended] = useState(false);
@@ -47,10 +47,11 @@ export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPo
     setTaskDone(task, true);
 
     if (points == 0) {
-      addPoints(10);
+      addPoints(1);
     }
     if (points != 0) {
-      updatePoints(points + 10);
+      const newPoints = points + 1;
+      updatePoints(newPoints);
     }
 
     fetchPoints();
@@ -79,14 +80,8 @@ export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPo
               {isDone ? (
                 <View></View>
               ) : (
-                <Pressable
-                  style={styles.doneButton}
-                  onPress={doneTask}
-                >
-                  <MaterialCommunityIcons
-                    name='check'
-                    size={70}
-                  />
+                <Pressable style={styles.doneButton} onPress={doneTask}>
+                  <MaterialCommunityIcons name='check' size={70} />
                 </Pressable>
               )}
             </View>
@@ -129,15 +124,9 @@ export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPo
                 )}
               </View>
 
-              <EditModal
-                task={task}
-                fetchTasks={fetchTasks}
-              />
+              <EditModal task={task} fetchTasks={fetchTasks} />
 
-              <Pressable
-                style={styles.deleteButton}
-                onPress={promptDeleteTask}
-              >
+              <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
                 <MaterialCommunityIcons
                   name='delete-outline'
                   size={70}

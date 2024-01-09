@@ -1,7 +1,6 @@
 import { Entypo } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { smoothExpansionAnimation, springAnimation } from '../Styling/GlobalStyles';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { impactAsync } from 'expo-haptics';
 import { useNavigation } from '@react-navigation/native';
 
@@ -46,24 +45,15 @@ export default function Pagination({ pageNumber }) {
   return (
     <View style={styles.dotsContainer}>
       <Pressable onPress={goToToday}>
-        <Entypo
-          name='dot-single'
-          size={dotOneSize}
-        />
+        <Entypo name='dot-single' size={dotOneSize} />
       </Pressable>
 
       <Pressable onPress={gotToCalendar}>
-        <Entypo
-          name='dot-single'
-          size={dotTwoSize}
-        />
+        <Entypo name='dot-single' size={dotTwoSize} />
       </Pressable>
 
       <Pressable onPress={gotToStart}>
-        <Entypo
-          name='dot-single'
-          size={dotThreeSize}
-        />
+        <Entypo name='dot-single' size={dotThreeSize} />
       </Pressable>
     </View>
   );

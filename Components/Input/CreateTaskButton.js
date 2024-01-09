@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
-import { globalColours } from '../../Styling/GlobalStyles';
+import { globalColours } from '../../GlobalStyles';
 import CreateTaskPage from '../../Pages/CreateTaskPage';
 import { useState } from 'react';
 
@@ -15,16 +15,10 @@ export default function CreateTaskButton({ fetchTasks }) {
         style={{ flex: 1, backgroundColor: globalColours.backgroundSecondary }}
         onRequestClose={() => setOpen(!isOpen)}
       >
-        <CreateTaskPage
-          fetchTasks={fetchTasks}
-          setOpen={setOpen}
-        />
+        <CreateTaskPage fetchTasks={fetchTasks} setOpen={setOpen} />
       </Modal>
       <View style={styles.container}>
-        <Pressable
-          style={styles.button}
-          onPress={() => setOpen(!isOpen)}
-        >
+        <Pressable style={styles.button} onPress={() => setOpen(!isOpen)}>
           <MaterialCommunityIcons
             name={'plus'}
             size={70}

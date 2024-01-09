@@ -44,7 +44,7 @@ export async function updatePoints(points) {
   try {
     database.transaction((trans) => {
       trans.executeSql(
-        'UPDATE points SET points = ? WHERE id = 0',
+        'UPDATE points SET points = ? WHERE id = 1',
         [points],
         () => {
           console.log('points are now ', points);

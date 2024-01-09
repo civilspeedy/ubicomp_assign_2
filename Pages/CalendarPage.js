@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
-import TitleText from '../Components/Output Components/TitleTextComponent';
-import { globalStyle } from '../Styling/GlobalStyles';
-import CustomCanendar from '../Components/CustomCalendarComponent';
+import TitleText from '../Components/Text/TitleTextComponent';
+import { globalStyle } from '../GlobalStyles';
+import CustomCanendar from '../Components/CalendarWithTasks';
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function CalendarPage({ fetchTasks, tasks, setPage }) {

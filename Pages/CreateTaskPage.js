@@ -1,17 +1,28 @@
+/**
+ * @file hosts the Create Task Page component
+ * @module CreateTaskPage
+ */
+
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { globalColours } from '../Styling/GlobalStyles';
-import DateSlector from '../Components/Input Components/DateSelectorComponent';
-import TitleText from '../Components/Output Components/TitleTextComponent';
-import Picker from '../Components/Input Components/PickerComponent';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import TaskTypeEntry from '../Components/TaskTypeEntriesComponent';
-import CustomTextInput from '../Components/Input Components/CustomTextInputComponent';
+import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { globalColours } from '../GlobalStyles';
+import DateSlector from '../Components/Input/DateSelector';
+import TitleText from '../Components/Text/TitleTextComponent';
+import Picker from '../Components/Input/DropDownPicker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import TaskTypeEntry from '../Components/InputBasedOnTaskType';
+import CustomTextInput from '../Components/Input/CustomTextInput';
 import { addTask } from '../Logic/Database/DatabaseManipulation';
 import { formateDateAsString } from '../Logic/DateFormater';
 import { impactAsync } from 'expo-haptics';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+/**
+ * Page allowing for data entry for tasks
+ * @param {function} fetchTasks - function that call for all tasks to be fetched from database
+ * @param {function}
+ * @returns
+ */
 export default function CreateTaskPage({ fetchTasks, setOpen }) {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
@@ -34,10 +45,18 @@ export default function CreateTaskPage({ fetchTasks, setOpen }) {
             placeholder={'Give your task a name!'}
           />
 
-          <Picker pickerLabel={'What type of Task is it?'} items={taskTypes} setValue={setType} />
+          <Picker
+            pickerLabel={'What type of Task is it?'}
+            items={taskTypes}
+            setValue={setType}
+          />
 
           <View style={{ marginBottom: 5 }}>
-            <DateSlector date={due} setDate={setDue} placeholder={'Select The Due Date'} />
+            <DateSlector
+              date={due}
+              setDate={setDue}
+              placeholder={'Select The Due Date'}
+            />
           </View>
 
           <TaskTypeEntry
@@ -56,8 +75,14 @@ export default function CreateTaskPage({ fetchTasks, setOpen }) {
           />
 
           <View style={styles.buttonContainer}>
-            <Pressable style={styles.closeButton} onPress={() => setOpen(false)}>
-              <MaterialCommunityIcons name='cancel' size={70} />
+            <Pressable
+              style={styles.closeButton}
+              onPress={() => setOpen(false)}
+            >
+              <MaterialCommunityIcons
+                name='cancel'
+                size={70}
+              />
             </Pressable>
             <Pressable
               onPress={() => {

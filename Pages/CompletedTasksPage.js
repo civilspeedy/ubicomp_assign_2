@@ -1,9 +1,9 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import TitleText from '../Components/Output Components/TitleTextComponent';
-import { globalColours, globalStyle } from '../Styling/GlobalStyles';
+import TitleText from '../Components/Text/TitleTextComponent';
+import { globalColours, globalStyle } from '../GlobalStyles';
 import { useState } from 'react';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import DisplayTasks from '../Components/Output Components/TaskDisplayComponent';
+import DisplayTasks from '../Components/Display/DisplayTasks';
 
 export default function CompletedTasksPage({ tasks, fetchTasks }) {
   const [isOpen, setOpen] = useState(false);

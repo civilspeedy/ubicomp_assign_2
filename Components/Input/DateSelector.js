@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { globalColours, smoothExpansionAnimation } from "../../Styling/GlobalStyles";
-import DateTimePicker from "react-native-ui-datepicker";
-import { formateDateAsString } from "../../Logic/DateFormater";
+import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { globalColours, smoothExpansionAnimation } from '../../GlobalStyles';
+import DateTimePicker from 'react-native-ui-datepicker';
+import { formateDateAsString } from '../../Logic/DateFormater';
 
 export default function DateSlector({ date, setDate, placeholder }) {
   const [isOpen, setOpen] = useState(false);
@@ -18,7 +18,7 @@ export default function DateSlector({ date, setDate, placeholder }) {
         }}
         style={styles.button}
       >
-        <Text style={{ color: "white", fontSize: 25, fontWeight: "bold" }}>{title}</Text>
+        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>{title}</Text>
       </Pressable>
 
       {isOpen && (
@@ -29,7 +29,7 @@ export default function DateSlector({ date, setDate, placeholder }) {
             onValueChange={(justSelected) => {
               if (justSelected != null) {
                 setOpen(false);
-                date = justSelected.split(" ")[0];
+                date = justSelected.split(' ')[0];
                 setDate(date);
                 setTitle(formateDateAsString(justSelected));
               }
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: globalColours.tertiary,
     padding: 20,
     borderRadius: 20,
-    alignItems: "center",
+    alignItems: 'center',
     marginHorizontal: 20,
   },
   modal: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   closeButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     backgroundColor: globalColours.secondary,
     padding: 20,
     borderRadius: 20,
