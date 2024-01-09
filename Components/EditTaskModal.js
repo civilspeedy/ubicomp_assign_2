@@ -33,13 +33,24 @@ export default function EditModal({ task, fetchTasks }) {
           />
 
           <CustomLabel text={'Edit Max Pages:'} />
-          <NumberInput value={maxPages} setValue={setPages} placeholder={String(task.page_count)} />
+          <NumberInput
+            value={maxPages}
+            setValue={setPages}
+            placeholder={String(task.page_count)}
+          />
 
           <CustomLabel text={'Edit Subject'} />
-          <CustomTextInput value={subject} setValue={setSubject} placeholder={task.subject} />
+          <CustomTextInput
+            value={subject}
+            setValue={setSubject}
+            placeholder={task.subject}
+          />
 
           <CustomLabel text={'Edit Due Date'} />
-          <DateSlector setDate={setDue} date={due} />
+          <DateSlector
+            setDate={setDue}
+            date={due}
+          />
         </View>
       );
     }
@@ -54,7 +65,10 @@ export default function EditModal({ task, fetchTasks }) {
           />
 
           <CustomLabel text={'Edit Due Date'} />
-          <DateSlector setDate={setDue} date={due} />
+          <DateSlector
+            setDate={setDue}
+            date={due}
+          />
         </View>
       );
     }
@@ -71,15 +85,25 @@ export default function EditModal({ task, fetchTasks }) {
       >
         <ScrollView style={styles.modal}>
           <CustomLabel text={'Edit Title:'} />
-          <CustomTextInput setValue={setTitle} value={title} placeholder={task.title} />
+          <CustomTextInput
+            setValue={setTitle}
+            value={title}
+            placeholder={task.title}
+          />
 
           <CustomLabel text={'Edit Start Date:'} />
-          <DateSlector date={startDate} setDate={setStart} />
+          <DateSlector
+            date={startDate}
+            setDate={setStart}
+          />
 
           {editBasedOnType()}
 
           <View style={styles.bottomButtons}>
-            <Pressable style={styles.cancel} onPress={() => setOpen(false)}>
+            <Pressable
+              style={styles.cancel}
+              onPress={() => setOpen(false)}
+            >
               <Text>Cancel and Close</Text>
             </Pressable>
 
@@ -109,8 +133,14 @@ export default function EditModal({ task, fetchTasks }) {
         </ScrollView>
       </Modal>
 
-      <Pressable style={styles.editButton} onPress={() => setOpen(true)}>
-        <MaterialCommunityIcons name='lead-pencil' size={70} />
+      <Pressable
+        style={styles.editButton}
+        onPress={() => setOpen(true)}
+      >
+        <MaterialCommunityIcons
+          name='lead-pencil'
+          size={70}
+        />
       </Pressable>
     </View>
   );

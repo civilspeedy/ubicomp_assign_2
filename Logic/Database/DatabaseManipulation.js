@@ -1,8 +1,16 @@
+/**
+ * fragments from https://brightspace.bournemouth.ac.uk/d2l/le/lessons/342479/topics/1956265 pages 94 to 98
+ * @file contains functions for executing SQL queries
+ * @module DatabaseManipulation
+ */
+
 import * as SQL from 'expo-sqlite';
 
 const database = SQL.openDatabase('database.db');
 
-// using fragments from ben's example files
+/**
+ * Creates new table for hosting task data for one does not exist already
+ */
 export async function createTaskTable() {
   database.transaction((trans) => {
     trans.executeSql(
@@ -18,6 +26,9 @@ export async function createTaskTable() {
   });
 }
 
+/**
+ * Create new table for storing the user's points if the table does not already exist
+ */
 export async function createPointsTable() {
   database.transaction((trans) => {
     trans.executeSql(
@@ -29,6 +40,10 @@ export async function createPointsTable() {
   });
 }
 
+/**
+ * Adds points value to points table
+ * @param {number} points - value representing the points gained by the user
+ */
 export async function addPoints(points) {
   database.transaction((trans) => {
     trans.executeSql(
@@ -40,6 +55,10 @@ export async function addPoints(points) {
   });
 }
 
+/**
+ * updates the points value in the points table
+ * @param {number} points - value representing the points gained by the user
+ */
 export async function updatePoints(points) {
   try {
     database.transaction((trans) => {
@@ -59,6 +78,10 @@ export async function updatePoints(points) {
   }
 }
 
+/**
+ * Gets points value from points table
+ * @returns {Array} - the user's points
+ */
 export async function getPoints() {
   return new Promise((resolve, reject) => {
     database.transaction((trans) => {
@@ -78,30 +101,11 @@ export async function getPoints() {
   });
 }
 
-export async function dropPointsTable() {
-  database.transaction((trans) => {
-    trans.executeSql(
-      'DROP TABLE points',
-      null,
-      () => console.log('pointstable dropped'),
-      (e) => console.error('err in dropPointsTable ', e)
-    );
-  });
-}
-
-export async function dropTaskTable() {
-  database.transaction((trans) => {
-    trans.executeSql(
-      'DROP TABLE tasks',
-      null,
-      () => console.log('tasks table dropped'),
-      (e) => console.error('err in dropTaskTable ', e)
-    );
-  });
-}
-
+/**
+ * Adds a task to the tasks table
+ * @param {object} task - a single object hosting details relating to a task
+ */
 export async function addTask(task) {
-  // while asking chatGPT for debuging help it suggested putting transaction in a try statement
   try {
     database.transaction((trans) => {
       trans.executeSql(
@@ -130,6 +134,10 @@ export async function addTask(task) {
   }
 }
 
+/**
+ * Deletes task off given name
+ * @param {string} taskName - name of the task to be deleted
+ */
 export async function deleteTask(taskName) {
   try {
     database.transaction((trans) => {
@@ -146,6 +154,10 @@ export async function deleteTask(taskName) {
   }
 }
 
+/**
+ * gets all tasks from tasks table
+ * @returns {Array} - all tasks in table
+ */
 export async function getTasks() {
   return new Promise((resolve, reject) => {
     database.transaction((trans) => {
@@ -165,6 +177,11 @@ export async function getTasks() {
   });
 }
 
+/**
+ * Updates a task with passed attributes using given name
+ * @param {object} task - a single object hosting details relating to a task
+ * @param {string} originalTitle - the original name of the task for identification if the user wishes to change the task's name
+ */
 export async function updateTask(task, originalTitle) {
   try {
     database.transaction((trans) => {
@@ -199,6 +216,11 @@ export async function updateTask(task, originalTitle) {
   }
 }
 
+/**
+ * Updates the 'done' attribute of a given task in the tasks table
+ * @param {object} task - a single object hosting details relating to a task
+ * @param {boolean} isDone - a boolean representing whether a task has been completed
+ */
 export async function setTaskDone(task, isDone) {
   try {
     database.transaction((trans) => {

@@ -45,6 +45,9 @@ export default function App() {
     }
   };
 
+  /**
+   * Asynchronous function to call the getPoints function in the database manipulation file and assigns value returned to points variable.
+   * */
   const fetchPoints = async () => {
     try {
       const fetchedPoints = await getPoints();

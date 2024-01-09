@@ -18,10 +18,10 @@ import { impactAsync } from 'expo-haptics';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 /**
- * Page allowing for data entry for tasks
+ * Page for creating tasks using a multitude of data entry components.
  * @param {function} fetchTasks - function that call for all tasks to be fetched from database
- * @param {function}
- * @returns
+ * @param {function} setOpen - part of the use state that controls the model this page is inside of
+ * @returns {View}
  */
 export default function CreateTaskPage({ fetchTasks, setOpen }) {
   const [title, setTitle] = useState('');

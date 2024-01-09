@@ -28,12 +28,15 @@ export default function StartPage({ setPage }) {
     }, [])
   );
 
+  /**
+   * Function to reset the timer's duration based on the previous duration, going from 25 to 5 and vice versa.
+   */
   const timerCycle = () => {
-    if (duration === minutesToSeconds(25)) {
+    if (duration == minutesToSeconds(25)) {
       setTimer(false);
       setDuration(minutesToSeconds(5));
       setKey((prevKey) => prevKey + 1);
-    } else if (duration === minutesToSeconds(5)) {
+    } else if (duration == minutesToSeconds(5)) {
       setTimer(false);
       setDuration(minutesToSeconds(25));
       setKey((prevKey) => prevKey + 1);

@@ -5,7 +5,9 @@
 
 import { LayoutAnimation, StyleSheet } from 'react-native';
 
-/**Calles the LayoutAnimation library for a smooth transition as a component changes. */
+/**Calles the LayoutAnimation library for a smooth transition as a component changes.
+ * https://reactnative.dev/docs/layoutanimation/
+ */
 export function smoothExpansionAnimation() {
   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 }
