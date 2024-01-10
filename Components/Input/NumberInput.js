@@ -17,7 +17,6 @@ export default function NumberInput({ value, setValue, placeholder }) {
     <TextInput
       style={globalStyle.input}
       onChangeText={setValue}
-      value={value}
       keyboardType='numeric'
       placeholder={placeholder}
     />

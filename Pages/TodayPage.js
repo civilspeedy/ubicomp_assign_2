@@ -75,6 +75,8 @@ export default function TodayPage({ fetchTasks, tasks, setPage, points, fetchPoi
           <AllTasksPage
             fetchTasks={fetchTasks}
             tasks={tasks}
+            fetchPoints={fetchPoints}
+            points={points}
           />
         </View>
 

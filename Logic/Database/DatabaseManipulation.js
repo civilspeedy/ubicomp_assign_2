@@ -26,6 +26,17 @@ export async function createTaskTable() {
   });
 }
 
+export async function dropTaskTable() {
+  database.transaction((trans) => {
+    trans.executeSql(
+      'DROP TABLE tasks',
+      null,
+      () => console.log('tasks table dropped'),
+      (e) => console.error('err in dropTaskTable ', e)
+    );
+  });
+}
+
 /**
  * Create new table for storing the user's points if the table does not already exist
  */

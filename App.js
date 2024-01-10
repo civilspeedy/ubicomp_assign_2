@@ -15,6 +15,8 @@ import { globalColours } from './GlobalStyles';
 import {
   createPointsTable,
   createTaskTable,
+  dropPointsTable,
+  dropTaskTable,
   getPoints,
   getTasks,
 } from './Logic/Database/DatabaseManipulation';

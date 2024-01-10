@@ -4,7 +4,7 @@
  */
 
 import { StyleSheet, Text, View } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { globalColours } from '../GlobalStyles';
 import DisplayTasks from './Display/DisplayTasks';
 import DateTimePicker from 'react-native-ui-datepicker';
@@ -28,10 +28,6 @@ export default function CustomCanendar({ fetchTasks, tasks, points, fetchPoints 
     setDate(day);
     fetchTasks();
   };
-
-  useEffect(() => {
-    markDates();
-  }, [tasks]);
 
   return (
     <View style={styles.container}>

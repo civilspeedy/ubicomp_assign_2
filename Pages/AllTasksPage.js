@@ -14,8 +14,11 @@ import DisplayTasks from '../Components/Display/DisplayTasks';
  * A page for view all undone tasks
  * @param {function} fetchTasks - function that call for all tasks to be fetched from database
  * @param {Array} tasks - an array containing all tasks
+ * @param {Number} points - the current points the user has
+ * @param {function} fetchPoints - a function to that updates points via fetching from the database
+ * @returns {View} - modal and pressable wrapped
  */
-export default function AllTasksPage({ tasks, fetchTasks }) {
+export default function AllTasksPage({ tasks, fetchTasks, points, fetchPoints }) {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -31,6 +34,8 @@ export default function AllTasksPage({ tasks, fetchTasks }) {
             tasks={tasks}
             fetchTasks={fetchTasks}
             displayType={'all'}
+            points={points}
+            fetchPoints={fetchPoints}
           />
 
           <Pressable

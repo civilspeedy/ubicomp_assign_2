@@ -247,5 +247,6 @@ const styles = StyleSheet.create({
   detailsText: {
     fontWeight: 'bold',
     fontSize: 20,
+    width: 120,
   },
 });

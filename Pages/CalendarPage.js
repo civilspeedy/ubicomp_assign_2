@@ -15,9 +15,11 @@ import { useFocusEffect } from '@react-navigation/native';
  * @param {function} fetchTasks - function that call for all tasks to be fetched from database
  * @param {Array} tasks - an array containing all tasks
  * @param {function} setPage - function that is passes an number value corisponding to current active page
+ * @param {Number} points - the current points the user has
+ * @param {function} fetchPoints - a function to that updates points via fetching from the database
  * @return {View}
  */
-export default function CalendarPage({ fetchTasks, tasks, setPage }) {
+export default function CalendarPage({ fetchTasks, tasks, setPage, points, fetchPoints }) {
   useFocusEffect(
     useCallback(() => {
       console.log('Calendar page is being looked at');
@@ -31,6 +33,8 @@ export default function CalendarPage({ fetchTasks, tasks, setPage }) {
       <CustomCanendar
         fetchTasks={fetchTasks}
         tasks={tasks}
+        points={points}
+        fetchPoints={fetchPoints}
       />
     </View>
   );

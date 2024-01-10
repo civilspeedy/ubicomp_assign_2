@@ -70,13 +70,15 @@ export default function EditModal({ task, fetchTasks }) {
       );
     }
     if (type == 'Presentation') {
+      console.log(task.slide_count);
       return (
         <View>
           <CustomLabel text={'Edit Slide Count:'} />
+
           <NumberInput
             value={slides}
             setValue={setSlides}
-            placeholder={String(task.slides_count)}
+            placeholder={`${task.slide_count}`}
           />
 
           <CustomLabel text={'Edit Due Date'} />
