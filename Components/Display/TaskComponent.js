@@ -1,3 +1,8 @@
+/**
+ * @file contains task component
+ * @module TaskComponent
+ */
+
 import React, { useState } from 'react';
 import { StyleSheet, View, Pressable, Alert, Text } from 'react-native';
 import { globalColours, smoothExpansionAnimation } from '../../GlobalStyles';
@@ -13,6 +18,15 @@ import {
 import EditModal from '../EditTaskModal';
 import { taskDoneToast } from '../../Logic/Cheerleader';
 
+/**
+ * A component for interacting with all functionality relating to a task
+ * @param {function} fetchTasks - function that call for all tasks to be fetched from database
+ * @param {Array} tasks - an array containing all tasks
+ * @param {function} setPage - function that is passes an number value corisponding to current active page
+ * @param {Number} points - the current points the user has
+ * @param {function} fetchPoints - a function to that updates points via fetching from the database
+ * @returns {GestureDetector}
+ */
 export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPoints }) {
   const [isExtended, setExtended] = useState(false);
   // https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/long-press-gesture
@@ -21,14 +35,20 @@ export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPo
   let hasWordCount = task.word_count != '';
   let hasSlideCount = task.slide_count != '';
   let hasPageCount = task.page_count != '';
+  const isDone = task.done == 1;
 
-  const whenLongPress = Gesture.LongPress().onEnd((e, success) => {
+  /**
+   * Is called when a long press is detected. Inverts extended's value.
+   */
+  const whenLongPress = Gesture.LongPress().onEnd(() => {
     smoothExpansionAnimation();
     impactAsync();
     setExtended(!isExtended);
   });
 
-  const isDone = task.done == 1;
+  /**
+   * Called on pressing the delete button, will warn the user and then call SQL query to delete task.
+   */
   const promptDeleteTask = () => {
     Alert.alert('Delete Task?', 'Are you sure you want to delete this Task?', [
       { text: 'No' },
@@ -42,6 +62,9 @@ export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPo
     ]);
   };
 
+  /**
+   * Called when pressing done button. Will updated task's done value in database and add points.
+   */
   const doneTask = () => {
     console.log('p:', points);
     setTaskDone(task, true);
@@ -80,8 +103,14 @@ export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPo
               {isDone ? (
                 <View></View>
               ) : (
-                <Pressable style={styles.doneButton} onPress={doneTask}>
-                  <MaterialCommunityIcons name='check' size={70} />
+                <Pressable
+                  style={styles.doneButton}
+                  onPress={doneTask}
+                >
+                  <MaterialCommunityIcons
+                    name='check'
+                    size={70}
+                  />
                 </Pressable>
               )}
             </View>
@@ -124,9 +153,15 @@ export default function TaskComponent({ task, fetchTasks, tasks, points, fetchPo
                 )}
               </View>
 
-              <EditModal task={task} fetchTasks={fetchTasks} />
+              <EditModal
+                task={task}
+                fetchTasks={fetchTasks}
+              />
 
-              <Pressable style={styles.deleteButton} onPress={promptDeleteTask}>
+              <Pressable
+                style={styles.deleteButton}
+                onPress={promptDeleteTask}
+              >
                 <MaterialCommunityIcons
                   name='delete-outline'
                   size={70}

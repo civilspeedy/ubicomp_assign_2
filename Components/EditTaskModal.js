@@ -1,3 +1,8 @@
+/**
+ * @file file containing the component used for editing tasks
+ * @module EditTaskModal
+ */
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -9,6 +14,12 @@ import { globalColours } from '../GlobalStyles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { updateTask } from '../Logic/Database/DatabaseManipulation';
 
+/**
+ * Modal used to edit task data
+ * @param {object} task - an array containing all tasks
+ * @param {function} fetchTasks - function that call for all tasks to be fetched from database
+ * @returns {View} - a view wrapping a modal and pressable
+ */
 export default function EditModal({ task, fetchTasks }) {
   const [isOpen, setOpen] = useState(false);
 
@@ -20,6 +31,10 @@ export default function EditModal({ task, fetchTasks }) {
   const [slides, setSlides] = useState(String(task.slides_count));
   const [subject, setSubject] = useState(task.subject);
 
+  /**
+   * Returns relevant data entry methods based on the type of task
+   * @returns {View}
+   */
   const editBasedOnType = () => {
     const type = task.format;
     if (type == 'Essay' || type == 'Report' || type == 'Project') {

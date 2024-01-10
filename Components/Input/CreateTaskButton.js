@@ -1,9 +1,19 @@
+/**
+ * @file contains the create task button
+ * @module CreateTaskButton
+ */
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 import { globalColours } from '../../GlobalStyles';
 import CreateTaskPage from '../../Pages/CreateTaskPage';
 import { useState } from 'react';
 
+/**
+ * A button for opening the create task page in a modal
+ * @param {function} fetchTasks - function that call for all tasks to be fetched from database
+ * @returns {View} - Modal and Pressable Wrapped
+ */
 export default function CreateTaskButton({ fetchTasks }) {
   const [isOpen, setOpen] = useState(false);
   return (
@@ -15,10 +25,16 @@ export default function CreateTaskButton({ fetchTasks }) {
         style={{ flex: 1, backgroundColor: globalColours.backgroundSecondary }}
         onRequestClose={() => setOpen(!isOpen)}
       >
-        <CreateTaskPage fetchTasks={fetchTasks} setOpen={setOpen} />
+        <CreateTaskPage
+          fetchTasks={fetchTasks}
+          setOpen={setOpen}
+        />
       </Modal>
       <View style={styles.container}>
-        <Pressable style={styles.button} onPress={() => setOpen(!isOpen)}>
+        <Pressable
+          style={styles.button}
+          onPress={() => setOpen(!isOpen)}
+        >
           <MaterialCommunityIcons
             name={'plus'}
             size={70}

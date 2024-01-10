@@ -1,33 +1,31 @@
+/**
+ * @file constains the custom calendar component
+ * @module CalendarWithTasks
+ */
+
 import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { globalColours } from '../GlobalStyles';
 import DisplayTasks from './Display/DisplayTasks';
-import { formateDateYearFirst } from '../Logic/DateFormater';
 import DateTimePicker from 'react-native-ui-datepicker';
 
+/**
+ * A calendar and display that will show tasks related to the selected date
+ * @param {function} fetchTasks - function that call for all tasks to be fetched from database
+ * @param {Array} tasks - an array containing all tasks
+ * @param {Number} points - the current points the user has
+ * @param {function} fetchPoints - a function to that updates points via fetching from the database
+ * @returns {View}
+ */
 export default function CustomCanendar({ fetchTasks, tasks, points, fetchPoints }) {
   const [date, setDate] = useState(null);
-  const [marked, setMarked] = useState([]);
 
-  //not sure how to do with dateTimerPicker
-  const markDates = () => {
-    let dates = [];
-    for (let i = 0; i < tasks.length; i++) {
-      if (tasks[i].done == 0) {
-        if (tasks[i].due != '00-00-00') {
-          dates.push(formateDateYearFirst(tasks[i].due));
-        }
-        if (tasks[i].start_date != '00-00-00') {
-          dates.push(tasks[i].start_date);
-        }
-      }
-    }
-    setMarked(dates);
-  };
-
+  /**
+   * updates the date value with passed date and calls fetch tasks
+   * @param {string} day - a date string
+   */
   const pressHandler = (day) => {
     setDate(day);
-    markDates();
     fetchTasks();
   };
 
