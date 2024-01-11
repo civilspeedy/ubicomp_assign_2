@@ -27,6 +27,7 @@ createTaskTable();
 createPointsTable();
 
 /**This is the App component hosting all pages within a Navigation Container
+ * fragments from https://reactnavigation.org/docs/material-top-tab-navigator
  * @returns {NavigationContainer} hosts all pages allowing for navigation between them
  */
 export default function App() {
@@ -34,7 +35,7 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const Stack = createMaterialTopTabNavigator();
-  // https://reactnavigation.org/docs/material-top-tab-navigator
+  //
 
   const fetchTasks = async () => {
     try {
